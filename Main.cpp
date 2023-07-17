@@ -1,5 +1,4 @@
 #define STB_IMAGE_IMPLEMENTATION
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <stb_image.h>
@@ -55,14 +54,38 @@ int main()
     }
 
     float vertices[] = {
-        0.0f,0.0f,0.0f,
-        0.0f,0.5f,0.25f,
-        0.5f,0.1f,0.2f,
-        -0.5f,0.0f,0.2f,
+        0.0f,0.0f,0.0f,   // origin
+        0.0f,0.0f,0.5f,   //origin top
+        0.0f,0.5f,0.0f,
+        0.0f,0.5f,0.5f,
+
+        0.0f,0.0f,-0.5f,
+        0.0f,0.5f,-0.5f,
+        0.5f,0.0f,-0.5f,
+        0.5f,0.5f,-0.5f
+
     };
     const int indices[] = {
-        0,1,2,
-        1,0,3,
+        1,6,3,
+        7,6,3,
+
+        0,1,3,
+        0,3,2,
+
+        0,2,4,
+        2,4,5,
+
+        5,4,7,
+        7,4,6,
+
+        2,3,7,
+        2,5,7,
+
+        0,1,6,
+        6,0,4,
+
+
+
     };
 
     
@@ -89,11 +112,10 @@ int main()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+  //  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 
-
-
+  
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
 
@@ -106,23 +128,23 @@ int main()
         processInput(window);
         glClearColor(1.0f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-
+        
         glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
         glm::mat4 view = glm::mat4(1.0f);
         glm::mat4 projection = glm::mat4(1.0f);
 
         glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
         //glDrawArrays(GL_TRIANGLES, 0, 6);
-        
-        model = glm::rotate(model, glm::radians(45.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f),glm::vec3(0.5f, 1.0f, 0.0f));
         view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+        float det = 45.0f * glfwGetTime();
         projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
         
         ourShader.setMat4("model",model);
         ourShader.setMat4("view",view);
         ourShader.setMat4("projection",projection);
-
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+      
+        glDrawElements(GL_TRIANGLES,36, GL_UNSIGNED_INT, 0);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
