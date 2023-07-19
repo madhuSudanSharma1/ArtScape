@@ -65,15 +65,15 @@ int main()
     }
 
     float vertices[] = {
-        -0.5f,-0.5f,0.5f,   // origin
-        0.5f,-0.5f,0.5f,   //origin top
-        -0.5f,0.5f,0.5f,
-        0.5f,0.5f,0.5f,
+        -0.5f,-0.5f,0.5f,  0.0f,0.0f, 
+        0.5f,-0.5f,0.5f,   1.0f,0.0f,
+        -0.5f,0.5f,0.5f,   0.0f,1.0f,
+        0.5f,0.5f,0.5f,    1.0f,1.0f,
 
-        -0.5f,-0.5f,-0.5f,
-        -0.5f,0.5f,-0.5f,
-        0.5f,-0.5f,-0.5f,
-        0.5f,0.5f,-0.5f,
+        -0.5f,-0.5f,-0.5f, 0.0f,0.0f,
+        -0.5f,0.5f,-0.5f,  0.0f,1.0f,
+        0.5f,-0.5f,-0.5f,  1.0f,0.0f,
+        0.5f,0.5f,-0.5f,   1.0f,1.0f,
 
     };
     const int indices[] = {
@@ -121,13 +121,44 @@ int main()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 
-    //glEnable(GL_DEPTH_TEST);
+    unsigned int texture1;
+    // texture 1
+    // ---------
+    glGenTextures(1, &texture1);
+    glBindTexture(GL_TEXTURE_2D, texture1);
+    // set the texture wrapping parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    // set texture filtering parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    // load image, create texture and generate mipmaps
+    int width, height, nrChannels;
+    stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
+    // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
+    unsigned char* data = stbi_load("./external/assets/wood.png", &width, &height, &nrChannels, 0);
+    if (data)
+    {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else
+    {
+        std::cout << "Failed to load texture" << std::endl;
+    }
+    stbi_image_free(data);
+
+    //glBindBuffer(GL_ARRAY_BUFFER, 0);
+    //glBindVertexArray(0);
+
+    
+    glEnable(GL_DEPTH_TEST);
 
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -138,7 +169,7 @@ int main()
     // ------------------------------------------------------------------
 
     ourShader.use();
-
+    ourShader.setInt("texture1", 0);
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -151,6 +182,10 @@ int main()
         processInput(window);
         glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texture1);
+        ourShader.use();
 
         
 
@@ -170,7 +205,7 @@ int main()
         ourShader.setMat4("model", model);
 
       
-        glDrawElements(GL_TRIANGLES,36, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES,30, GL_UNSIGNED_INT, 0);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -202,14 +237,27 @@ void processInput(GLFWwindow* window)
         camera.ProcessKeyboard(LEFT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         camera.ProcessKeyboard(RIGHT, deltaTime);
+    
     if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
         camera.ProcessKeyboard(UP, deltaTime);
+    
     if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
         camera.ProcessKeyboard(DOWN, deltaTime);
+
     if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
         camera.ProcessKeyboard(ROTATE_LEFT, deltaTime);
+    
     if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
         camera.ProcessKeyboard(ROTATE_RIGHT, deltaTime);
+    
+    if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS)
+        camera.ProcessKeyboard(ROTATE_UP, deltaTime);
+    
+    if (glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS)
+        camera.ProcessKeyboard(ROTATE_DOWN, deltaTime);
+    
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+        camera.ProcessKeyboard(DEFAULT, deltaTime);
 
 
 

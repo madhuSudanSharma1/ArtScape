@@ -18,6 +18,9 @@ enum Camera_Movement {
     DOWN,
     ROTATE_LEFT,
     ROTATE_RIGHT,
+    ROTATE_UP,
+    ROTATE_DOWN,
+    DEFAULT,
 };
 
 // Default camera values
@@ -89,14 +92,22 @@ public:
         if (direction == DOWN)
             Position.y -= 0.7f * velocity;
         if (direction == ROTATE_LEFT)
-        {
-            Front.x -= 2.0f * velocity;
-        }
+            Yaw -= 12.0f*velocity;
         if (direction == ROTATE_RIGHT)
-            Front.x += 2.0f * velocity;
+            Yaw += 12.0f*velocity;
+        if (direction == ROTATE_UP)
+            Pitch += 12.0f * velocity;
+        if (direction == ROTATE_DOWN)
+            Pitch -= 12.0f * velocity;
+        if (direction == DEFAULT)
         {
-
+            Yaw = -90.0f;
+            Pitch = 0.0f;
+            Position = glm::vec3(0.0f, 0.0f, 3.0f);
+            Front = glm::vec3(0.0f, 0.0f, -1.0f);
         }
+
+        updateCameraVectors();
     }
 
     // processes input received from a mouse input system. Expects the offset value in both the x and y direction.
@@ -115,6 +126,10 @@ public:
                 Pitch = 89.0f;
             if (Pitch < -89.0f)
                 Pitch = -89.0f;
+            if (Yaw > 180.0f)
+                Yaw -= 360.0f;
+            if (Yaw < -180.0f)
+                Yaw += 360.0f;
         }
 
         // update Front, Right and Up Vectors using the updated Euler angles
