@@ -16,10 +16,10 @@ void processInput(GLFWwindow* window);
 
 // settings
 const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCR_HEIGHT = 750;
 
 // camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera camera(glm::vec3(0.0f, 0.0f, 100.0f));
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
@@ -28,6 +28,32 @@ bool firstMouse = true;
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
 
+void createTexture(const char* path, unsigned int* tex)
+{
+    glGenTextures(1, tex);
+    glBindTexture(GL_TEXTURE_2D, *tex);
+    // set the texture wrapping parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    // set texture filtering parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    // load image, create texture and generate mipmaps
+    int width, height, nrChannels;
+    stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
+    // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
+    unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 0);
+    if (data)
+    {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else
+    {
+        std::cout << "Failed to load texture" << std::endl;
+    }
+    stbi_image_free(data);
+}
 
 int main()
 {
@@ -35,8 +61,8 @@ int main()
     // ------------------------------
     glfwInit();
     
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 
@@ -54,7 +80,7 @@ int main()
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
 
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------
@@ -63,63 +89,136 @@ int main()
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
+   /* float verticesSide[] = {
+         -0.5f,0.5f,-0.5f,0.0f,1.0f,
+        -0.5f,-0.5f,-0.5f,0.0f,0.0f,
+        0.5f,-0.5f,-0.5f,1.0f,0.0f,
+        -0.5f,0.5f,-0.5f,0.0f,1.0f,
+        0.5f,-0.5f,-0.5f,1.0f,0.0f,
+        0.5f,0.5f,-0.5f,1.0f,1.0f,
 
-    float vertices[] = {
-        -0.5f,-0.5f,0.5f,  0.0f,0.0f, 
-        0.5f,-0.5f,0.5f,   1.0f,0.0f,
-        -0.5f,0.5f,0.5f,   0.0f,1.0f,
-        0.5f,0.5f,0.5f,    1.0f,1.0f,
+        0.5f,-0.5f,0.5f,0.0f,0.0f,
+        0.5f,-0.5f,-0.5f,0.0f,1.0f,
+        0.5f,0.5f,-0.5f,1.0f,1.0f,
+        0.5f,-0.5f,0.5f,0.0f,0.0f,
+        0.5f,0.5f,-0.5f,1.0f,1.0f,
+        0.5f,0.5f,0.5f,1.0f,0.0f,
 
-        -0.5f,-0.5f,-0.5f, 0.0f,0.0f,
-        -0.5f,0.5f,-0.5f,  0.0f,1.0f,
-        0.5f,-0.5f,-0.5f,  1.0f,0.0f,
-        0.5f,0.5f,-0.5f,   1.0f,1.0f,
+        -0.5f,-0.5f,0.5f,0.0f,0.0f,
+        -0.5f,-0.5f,-0.5f,0.0f,1.0f,
+        -0.5f,0.5f,-0.5f,1.0f,1.0f,
+        -0.5f,-0.5f,0.5f,0.0f,0.0f,
+        -0.5f,0.5f,-0.5f,1.0f,1.0f,
+        -0.5f,0.5f,0.5f,1.0f,0.0f,
 
     };
-    const int indices[] = {
-        //front
-        //0,1,3,
-        //0,3,2,
+    float verticesTopBottom[] = {
 
-        //back
-        5,4,7,
-        7,4,6,
+        0.5f,0.5f,-0.5f,1.0f,1.0f,
+        -0.5f,0.5f,-0.5f,0.0f,1.0f,
+        -0.5f,0.5f,0.5f,0.0f,0.0f,
+        0.5f,0.5f,-0.5f,1.0f,1.0f,
+        -0.5f,0.5f,0.5f,0.0f,0.0f,
+        0.5f,0.5f,0.5f,1.0f,0.0f,
 
-        //right
-        1,6,3,
-        7,6,3,
+        0.5f,-0.5f,-0.5f,1.0f,1.0f,
+        -0.5f,-0.5f,-0.5f,0.0f,1.0f,
+        -0.5f,-0.5f,0.5f,0.0f,0.0f,
+        0.5f,-0.5f,-0.5f,1.0f,1.0f,
+        -0.5f,-0.5f,0.5f,0.0f,0.0f,
+        0.5f,-0.5f,0.5f,1.0f,0.0f,
+    };*/
 
-        //left
-        0,2,4,
-        2,4,5,
+    float verticesSide[] = {
+        /*   -50.5f,50.5f,50.5f,0.0f,1.0f,
+           -50.5f,-50.5f,50.5f,0.0f,0.0f,
+           50.5f,-50.5f,50.5f,1.0f,0.0f,
+           -50.5f,50.5f,50.5f,0.0f,1.0f,
+           50.5f,-50.5f,50.5f,1.0f,0.0f,
+           50.5f,50.5f,50.5f,1.0f,1.0f,*/
 
-        //top
-        2,3,7,
-        2,5,7,
+           -50.5f,21.5f,-75.5f,0.0f,1.0f,
+           -50.5f,-21.5f,-75.5f,0.0f,0.0f,
+           50.5f,-21.5f,-75.5f,1.0f,0.0f,
+           -50.5f,21.5f,-75.5f,0.0f,1.0f,
+           50.5f,-21.5f,-75.5f,1.0f,0.0f,
+           50.5f,21.5f,-75.5f,1.0f,1.0f,
 
-        //bottom
-        0,1,6,
-        6,0,4,
- 
+           50.5f,-21.5f,75.5f,0.0f,0.0f,
+           50.5f,-21.5f,-75.5f,0.0f,1.0f,
+           50.5f,21.5f,-75.5f,1.0f,1.0f,
+           50.5f,-21.5f,75.5f,0.0f,0.0f,
+           50.5f,21.5f,-75.5f,1.0f,1.0f,
+           50.5f,21.5f,75.5f,1.0f,0.0f,
+
+           -50.5f,-21.5f,75.5f,0.0f,0.0f,
+           -50.5f,-21.5f,-75.5f,0.0f,1.0f,
+           -50.5f,21.5f,-75.5f,1.0f,1.0f,
+           -50.5f,-21.5f,75.5f,0.0f,0.0f,
+           -50.5f,21.5f,-75.5f,1.0f,1.0f,
+           -50.5f,21.5f,75.5f,1.0f,0.0f,
     };
 
+    float verticesTopBottom[] = {
+            50.5f,21.5f,-75.5f,1.0f,1.0f,
+            -50.5f,21.5f,-75.5f,0.0f,1.0f,
+            -50.5f,21.5f,75.5f,0.0f,0.0f,
+            50.5f,21.5f,-75.5f,1.0f,1.0f,
+            -50.5f,21.5f,75.5f,0.0f,0.0f,
+            50.5f,21.5f,75.5f,1.0f,0.0f,
+
+            50.5f,-21.5f,-75.5f,1.0f,1.0f,
+            -50.5f,-21.5f,-75.5f,0.0f,1.0f,
+            -50.5f,-21.5f,75.5f,0.0f,0.0f,
+            50.5f,-21.5f,-75.5f,1.0f,1.0f,
+            -50.5f,-21.5f,75.5f,0.0f,0.0f,
+            50.5f,-21.5f,75.5f,1.0f,0.0f
+    };
+
+    float verticesPillar[] = {
+           -20.5f,21.5f,20.5f,      
+           -20.5f,-21.5f,20.5f,     
+           20.5f,-21.5f,20.5f,      
+           -20.5f,21.5f,20.5f,      
+           20.5f,-21.5f,20.5f,      
+           20.5f,21.5f,20.5f,       
+
+           -20.5f,21.5f,-20.5f,     
+           -20.5f,-21.5f,-20.5f,    
+           20.5f,-21.5f,-20.5f,     
+           -20.5f,21.5f,-20.5f,     
+           20.5f,-21.5f,-20.5f,     
+           20.5f,21.5f,-20.5f,      
+
+           20.5f,-21.5f,20.5f,      
+           20.5f,-21.5f,-20.5f,     
+           20.5f,21.5f,-20.5f,      
+           20.5f,-21.5f,20.5f,      
+           20.5f,21.5f,-20.5f,      
+           20.5f,21.5f,20.5f,       
+
+           -20.5f,-21.5f,20.5f,     
+           -20.5f,-21.5f,-20.5f,    
+           -20.5f,21.5f,-20.5f,     
+           -20.5f,-21.5f,20.5f,     
+           -20.5f,21.5f,-20.5f,     
+           -20.5f,21.5f,20.5f,      
+
+    };
     
-    // build and compile our shader zprogram
+    
+    // build and compile our shader program
     // ------------------------------------
     Shader ourShader("./Shaders/shader.vs", "./Shaders/shader.fs");
 
 
-    unsigned int VAO, VBO, EBO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
+    unsigned int VAO[3], VBO[3];
+    glGenVertexArrays(3, VAO);
+    glGenBuffers(3, VBO);
 
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    glBindVertexArray(VAO[0]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(verticesSide), verticesSide, GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
@@ -127,37 +226,32 @@ int main()
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
-    unsigned int texture1;
-    // texture 1
-    // ---------
-    glGenTextures(1, &texture1);
-    glBindTexture(GL_TEXTURE_2D, texture1);
-    // set the texture wrapping parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    // set texture filtering parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    // load image, create texture and generate mipmaps
-    int width, height, nrChannels;
-    stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
-    unsigned char* data = stbi_load("./external/assets/wood.png", &width, &height, &nrChannels, 0);
-    if (data)
-    {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
-        std::cout << "Failed to load texture" << std::endl;
-    }
-    stbi_image_free(data);
 
-    //glBindBuffer(GL_ARRAY_BUFFER, 0);
-    //glBindVertexArray(0);
+    glBindVertexArray(VAO[1]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(verticesTopBottom), verticesTopBottom, GL_STATIC_DRAW);
 
     
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+    
+    glBindVertexArray(VAO[2]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[2]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(verticesPillar), verticesPillar, GL_STATIC_DRAW);
+
+    
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+
+
+    unsigned int texture1, texture2;
+    createTexture("./external/assets/wall.jpg", &texture1);
+    createTexture("./external/assets/wood.png", &texture2);
+
     glEnable(GL_DEPTH_TEST);
 
 
@@ -168,8 +262,7 @@ int main()
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
 
-    ourShader.use();
-    ourShader.setInt("texture1", 0);
+    
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -182,16 +275,12 @@ int main()
         processInput(window);
         glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture1);
+        ourShader.setInt("checkTex", 0);
+
         ourShader.use();
-
+        glBindVertexArray(VAO[0]); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
         
-
-        glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
-        
-
         // pass projection matrix to shader (note that in this case it could change every frame)
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
         ourShader.setMat4("projection", projection);
@@ -204,8 +293,20 @@ int main()
         model = glm::translate(model, glm::vec3(1.0f,0.0f,0.0f));
         ourShader.setMat4("model", model);
 
-      
-        glDrawElements(GL_TRIANGLES,30, GL_UNSIGNED_INT, 0);
+        glDrawArrays(GL_TRIANGLES,0,18);
+        
+        glBindTexture(GL_TEXTURE_2D, texture2);
+
+
+        glBindVertexArray(VAO[1]);
+
+        glDrawArrays(GL_TRIANGLES,0,12);
+
+        
+        ourShader.setInt("checkTex", 1);
+
+        glBindVertexArray(VAO[2]);
+        glDrawArrays(GL_TRIANGLES,0,24);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -214,9 +315,8 @@ int main()
     // optional: de-allocate all resources once they've outlived their purpose:
     // ------------------------------------------------------------------------
 
-        glDeleteVertexArrays(1, &VAO);
-        glDeleteBuffers(1, &VBO);
-        glDeleteBuffers(1, &EBO);
+        glDeleteVertexArrays(2, VAO);
+        glDeleteBuffers(2, VBO);
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
     glfwTerminate();

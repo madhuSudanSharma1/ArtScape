@@ -26,7 +26,7 @@ enum Camera_Movement {
 // Default camera values
 const float YAW         = -90.0f;
 const float PITCH       =  0.0f;
-const float SPEED       =  1.0f;
+const float SPEED       =  10.0f;
 const float SENSITIVITY =  0.1f;
 const float ZOOM        =  45.0f;
 
@@ -79,6 +79,7 @@ public:
     void ProcessKeyboard(Camera_Movement direction, float deltaTime)
     {
         float velocity = MovementSpeed * deltaTime;
+
         if (direction == FORWARD)
             Position += Front * velocity;
         if (direction == BACKWARD)
@@ -103,7 +104,7 @@ public:
         {
             Yaw = -90.0f;
             Pitch = 0.0f;
-            Position = glm::vec3(0.0f, 0.0f, 3.0f);
+            Position = glm::vec3(0.0f, 0.0f, 100.0f);
             Front = glm::vec3(0.0f, 0.0f, -1.0f);
         }
 
@@ -122,7 +123,7 @@ public:
         // make sure that when pitch is out of bounds, screen doesn't get flipped
         if (constrainPitch)
         {
-            if (Pitch > 89.0f)
+            if (Pitch > 180.0f)
                 Pitch = 89.0f;
             if (Pitch < -89.0f)
                 Pitch = -89.0f;

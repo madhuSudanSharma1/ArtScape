@@ -1,10 +1,16 @@
-#version 330 core
+#version 460 core
 out vec4 FragColor;
 
 in vec2 textCordinate;
-uniform sampler2D texture1;
+uniform sampler2D texture;
+uniform int checkTex;
+
 
 void main()
 {
-	FragColor = texture(texture1, textCordinate);
+	if(checkTex==0)
+		FragColor = texture(texture, textCordinate);
+	else
+		FragColor = vec4(0.722f, 0.871f, 0.686f,1.0f);
+
 }
