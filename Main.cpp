@@ -83,6 +83,7 @@ int main()
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
+    glfwSwapInterval(2);
 
     //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
@@ -188,7 +189,7 @@ int main()
        20.5f,-21.5f,20.5f,   1.0f,0.0f,
        20.5f,21.5f,20.5f,    1.0f,1.0f,
 
-       /*-20.5f,21.5f,-20.5f,   0.0f,1.0f,
+       -20.5f,21.5f,-20.5f,   0.0f,1.0f,
        -20.5f,-21.5f,-20.5f,  0.0f,0.0f,
        20.5f,-21.5f,-20.5f,   1.0f,0.0f,
        -20.5f,21.5f,-20.5f,   0.0f,1.0f,
@@ -207,7 +208,7 @@ int main()
        -20.5f,21.5f,-20.5f,   1.0f,0.0f,
        -20.5f,-21.5f,20.5f,   0.0f,1.0f,
        -20.5f,21.5f,-20.5f,   1.0f,0.0f,
-       -20.5f,21.5f,20.5f,    1.0f,1.0f,*/
+       -20.5f,21.5f,20.5f,    1.0f,1.0f,
 
     };
     
@@ -284,14 +285,14 @@ int main()
         processInput(window);
         glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        //glBindTexture(GL_TEXTURE_2D, texture1);
+        glBindTexture(GL_TEXTURE_2D, texture1);
         ourShader.setInt("checkTex", 1);
 
         ourShader.use();
         glBindVertexArray(VAO[0]); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
         
         // pass projection matrix to shader (note that in this case it could change every frame)
-        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 200.0f);
         ourShader.setMat4("projection", projection);
 
         // camera/view transformation
@@ -304,7 +305,7 @@ int main()
 
         glDrawArrays(GL_TRIANGLES,0,18);
         
-        //glBindTexture(GL_TEXTURE_2D, texture2);
+        glBindTexture(GL_TEXTURE_2D, texture2);
 
 
         glBindVertexArray(VAO[1]);
@@ -312,11 +313,11 @@ int main()
         glDrawArrays(GL_TRIANGLES,0,12);
 
         
-        ourShader.setInt("checkTex", 0);
+        ourShader.setInt("checkTex", 1);
 
         glBindTexture(GL_TEXTURE_2D, texture3);
         glBindVertexArray(VAO[2]);
-        glDrawArrays(GL_TRIANGLES,0,6);
+        glDrawArrays(GL_TRIANGLES,0,24);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

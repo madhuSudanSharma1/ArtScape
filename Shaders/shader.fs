@@ -8,7 +8,7 @@ uniform int checkTex;
 
 void main()
 {
-	if(checkTex==0)
+	if(checkTex==1)
 		FragColor = texture(texture, textCordinate);
 	else
 		FragColor = vec4(0.722f, 0.871f, 0.686f,1.0f);
