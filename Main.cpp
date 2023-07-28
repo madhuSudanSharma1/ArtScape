@@ -142,73 +142,105 @@ int main()
            50.5f,-50.5f,50.5f,1.0f,0.0f,
            50.5f,50.5f,50.5f,1.0f,1.0f,*/
 
-           -50.5f,21.5f,-75.5f,0.0f,1.0f,
-           -50.5f,-21.5f,-75.5f,0.0f,0.0f,
-           50.5f,-21.5f,-75.5f,1.0f,0.0f,
-           -50.5f,21.5f,-75.5f,0.0f,1.0f,
-           50.5f,-21.5f,-75.5f,1.0f,0.0f,
-           50.5f,21.5f,-75.5f,1.0f,1.0f,
+           -50.5f,17.5f,-75.5f,0.0f,1.0f,
+           -50.5f,-17.5f,-75.5f,0.0f,0.0f,
+           50.5f,-17.5f,-75.5f,1.0f,0.0f,
+           -50.5f,17.5f,-75.5f,0.0f,1.0f,
+           50.5f,-17.5f,-75.5f,1.0f,0.0f,
+           50.5f,17.5f,-75.5f,1.0f,1.0f,
 
-           50.5f,-21.5f,75.5f,0.0f,0.0f,
-           50.5f,-21.5f,-75.5f,0.0f,1.0f,
-           50.5f,21.5f,-75.5f,1.0f,1.0f,
-           50.5f,-21.5f,75.5f,0.0f,0.0f,
-           50.5f,21.5f,-75.5f,1.0f,1.0f,
-           50.5f,21.5f,75.5f,1.0f,0.0f,
+           50.5f,-17.5f,75.5f,0.0f,0.0f,
+           50.5f,-17.5f,-75.5f,0.0f,1.0f,
+           50.5f,17.5f,-75.5f,1.0f,1.0f,
+           50.5f,-17.5f,75.5f,0.0f,0.0f,
+           50.5f,17.5f,-75.5f,1.0f,1.0f,
+           50.5f,17.5f,75.5f,1.0f,0.0f,
 
-           -50.5f,-21.5f,75.5f,0.0f,0.0f,
-           -50.5f,-21.5f,-75.5f,0.0f,1.0f,
-           -50.5f,21.5f,-75.5f,1.0f,1.0f,
-           -50.5f,-21.5f,75.5f,0.0f,0.0f,
-           -50.5f,21.5f,-75.5f,1.0f,1.0f,
-           -50.5f,21.5f,75.5f,1.0f,0.0f,
+           -50.5f,-17.5f,75.5f,0.0f,0.0f,
+           -50.5f,-17.5f,-75.5f,0.0f,1.0f,
+           -50.5f,17.5f,-75.5f,1.0f,1.0f,
+           -50.5f,-17.5f,75.5f,0.0f,0.0f,
+           -50.5f,17.5f,-75.5f,1.0f,1.0f,
+           -50.5f,17.5f,75.5f,1.0f,0.0f,
     };
 
     float verticesTopBottom[] = {
-            50.5f,21.5f,-75.5f,1.0f,1.0f,
-            -50.5f,21.5f,-75.5f,0.0f,1.0f,
-            -50.5f,21.5f,75.5f,0.0f,0.0f,
-            50.5f,21.5f,-75.5f,1.0f,1.0f,
-            -50.5f,21.5f,75.5f,0.0f,0.0f,
-            50.5f,21.5f,75.5f,1.0f,0.0f,
+            50.5f,17.5f,-75.5f,1.0f,1.0f,
+            -50.5f,17.5f,-75.5f,0.0f,1.0f,
+            -50.5f,17.5f,75.5f,0.0f,0.0f,
+            50.5f,17.5f,-75.5f,1.0f,1.0f,
+            -50.5f,17.5f,75.5f,0.0f,0.0f,
+            50.5f,17.5f,75.5f,1.0f,0.0f,
 
-            50.5f,-21.5f,-75.5f,1.0f,1.0f,
-            -50.5f,-21.5f,-75.5f,0.0f,1.0f,
-            -50.5f,-21.5f,75.5f,0.0f,0.0f,
-            50.5f,-21.5f,-75.5f,1.0f,1.0f,
-            -50.5f,-21.5f,75.5f,0.0f,0.0f,
-            50.5f,-21.5f,75.5f,1.0f,0.0f
+            50.5f,-17.5f,-75.5f,1.0f,1.0f,
+            -50.5f,-17.5f,-75.5f,0.0f,1.0f,
+            -50.5f,-17.5f,75.5f,0.0f,0.0f,
+            50.5f,-17.5f,-75.5f,1.0f,1.0f,
+            -50.5f,-17.5f,75.5f,0.0f,0.0f,
+            50.5f,-17.5f,75.5f,1.0f,0.0f
     };
 
-    float verticesPillar[] = {
+    float verticesPillarBack[] = {
         //front
-       -20.5f,21.5f,20.5f,   0.0f,1.0f,
-       -20.5f,-21.5f,20.5f,  0.0f,0.0f,
-       20.5f,-21.5f,20.5f,   1.0f,0.0f,
-       -20.5f,21.5f,20.5f,   0.0f,1.0f,
-       20.5f,-21.5f,20.5f,   1.0f,0.0f,
-       20.5f,21.5f,20.5f,    1.0f,1.0f,
+       -20.5f,21.5f,20.5f,   
+       -20.5f,-21.5f,20.5f,  
+       20.5f,-21.5f,20.5f,   
+       -20.5f,21.5f,20.5f,   
+       20.5f,-21.5f,20.5f,   
+       20.5f,21.5f,20.5f,    
 
-       -20.5f,21.5f,-20.5f,   0.0f,1.0f,
-       -20.5f,-21.5f,-20.5f,  0.0f,0.0f,
-       20.5f,-21.5f,-20.5f,   1.0f,0.0f,
-       -20.5f,21.5f,-20.5f,   0.0f,1.0f,
-       20.5f,-21.5f,-20.5f,   1.0f,0.0f,
-       20.5f,21.5f,-20.5f,    1.0f,1.0f,
+       -20.5f,21.5f,-20.5f,  
+       -20.5f,-21.5f,-20.5f, 
+       20.5f,-21.5f,-20.5f,  
+       -20.5f,21.5f,-20.5f,  
+       20.5f,-21.5f,-20.5f,  
+       20.5f,21.5f,-20.5f,   
 
-       20.5f,-21.5f,20.5f,    0.0f,1.0f,
-       20.5f,-21.5f,-20.5f,   0.0f,0.0f,
-       20.5f,21.5f,-20.5f,    1.0f,0.0f,
-       20.5f,-21.5f,20.5f,    0.0f,1.0f,
-       20.5f,21.5f,-20.5f,    1.0f,0.0f,
-       20.5f,21.5f,20.5f,     1.0f,1.0f,
+       20.5f,-21.5f,20.5f,   
+       20.5f,-21.5f,-20.5f,  
+       20.5f,21.5f,-20.5f,   
+       20.5f,-21.5f,20.5f,   
+       20.5f,21.5f,-20.5f,   
+       20.5f,21.5f,20.5f,    
 
-       -20.5f,-21.5f,20.5f,   0.0f,1.0f,
-       -20.5f,-21.5f,-20.5f,  0.0f,0.0f,
-       -20.5f,21.5f,-20.5f,   1.0f,0.0f,
-       -20.5f,-21.5f,20.5f,   0.0f,1.0f,
-       -20.5f,21.5f,-20.5f,   1.0f,0.0f,
-       -20.5f,21.5f,20.5f,    1.0f,1.0f,
+       -20.5f,-21.5f,20.5f,  
+       -20.5f,-21.5f,-20.5f, 
+       -20.5f,21.5f,-20.5f,  
+       -20.5f,-21.5f,20.5f,  
+       -20.5f,21.5f,-20.5f,  
+       -20.5f,21.5f,20.5f,   
+
+    };
+
+    float verticesPillarImage[] = {
+        //front
+       -12.5f,17.5f,12.5f,   0.0f,1.0f,
+       -12.5f,-17.5f,12.5f,  0.0f,0.0f,
+       12.5f,-17.5f,12.5f,   1.0f,0.0f,
+       -12.5f,17.5f,12.5f,   0.0f,1.0f,
+       12.5f,-17.5f,12.5f,   1.0f,0.0f,
+       12.5f,17.5f,12.5f,    1.0f,1.0f,
+
+       -12.5f,17.5f,-12.5f,   0.0f,1.0f,
+       -12.5f,-17.5f,-12.5f,  0.0f,0.0f,
+       12.5f,-17.5f,-12.5f,   1.0f,0.0f,
+       -12.5f,17.5f,-12.5f,   0.0f,1.0f,
+       12.5f,-17.5f,-12.5f,   1.0f,0.0f,
+       12.5f,17.5f,-12.5f,    1.0f,1.0f,
+
+       12.5f,-17.5f,12.5f,    0.0f,1.0f,
+       12.5f,-17.5f,-12.5f,   0.0f,0.0f,
+       12.5f,17.5f,-12.5f,    1.0f,0.0f,
+       12.5f,-17.5f,12.5f,    0.0f,1.0f,
+       12.5f,17.5f,-12.5f,    1.0f,0.0f,
+       12.5f,17.5f,12.5f,     1.0f,1.0f,
+
+       -12.5f,-17.5f,12.5f,   0.0f,1.0f,
+       -12.5f,-17.5f,-12.5f,  0.0f,0.0f,
+       -12.5f,17.5f,-12.5f,   1.0f,0.0f,
+       -12.5f,-17.5f,12.5f,   0.0f,1.0f,
+       -12.5f,17.5f,-12.5f,   1.0f,0.0f,
+       -12.5f,17.5f,12.5f,    1.0f,1.0f,
 
     };
     
@@ -218,9 +250,9 @@ int main()
     Shader ourShader("./Shaders/shader.vs", "./Shaders/shader.fs");
 
 
-    unsigned int VAO[3], VBO[3];
-    glGenVertexArrays(3, VAO);
-    glGenBuffers(3, VBO);
+    unsigned int VAO[4], VBO[4];
+    glGenVertexArrays(4, VAO);
+    glGenBuffers(4, VBO);
 
     glBindVertexArray(VAO[0]);
     glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
@@ -246,7 +278,7 @@ int main()
     
     glBindVertexArray(VAO[2]);
     glBindBuffer(GL_ARRAY_BUFFER, VBO[2]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(verticesPillar), verticesPillar, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(verticesPillarImage), verticesPillarImage, GL_STATIC_DRAW);
 
     
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
@@ -255,6 +287,13 @@ int main()
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
+    glBindVertexArray(VAO[3]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[3]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(verticesPillarBack), verticesPillarBack, GL_STATIC_DRAW);
+
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
 
 
     unsigned int texture1, texture2,texture3;
@@ -268,11 +307,7 @@ int main()
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 
-  
-    // set up vertex data (and buffer(s)) and configure vertex attributes
-    // ------------------------------------------------------------------
 
-    
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -286,7 +321,7 @@ int main()
         glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glBindTexture(GL_TEXTURE_2D, texture1);
-        ourShader.setInt("checkTex", 1);
+        ourShader.setInt("checkTex", 0);
 
         ourShader.use();
         glBindVertexArray(VAO[0]); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
@@ -305,6 +340,8 @@ int main()
 
         glDrawArrays(GL_TRIANGLES,0,18);
         
+
+
         glBindTexture(GL_TEXTURE_2D, texture2);
 
 
@@ -313,11 +350,16 @@ int main()
         glDrawArrays(GL_TRIANGLES,0,12);
 
         
-        ourShader.setInt("checkTex", 1);
 
         glBindTexture(GL_TEXTURE_2D, texture3);
         glBindVertexArray(VAO[2]);
         glDrawArrays(GL_TRIANGLES,0,24);
+        
+        ourShader.setInt("checkTex", 1);
+
+        glBindVertexArray(VAO[3]);
+        glDrawArrays(GL_TRIANGLES, 0, 24);
+        
 
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -326,8 +368,8 @@ int main()
     // optional: de-allocate all resources once they've outlived their purpose:
     // ------------------------------------------------------------------------
 
-        glDeleteVertexArrays(2, VAO);
-        glDeleteBuffers(2, VBO);
+        glDeleteVertexArrays(4, VAO);
+        glDeleteBuffers(4, VBO);
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
     glfwTerminate();
