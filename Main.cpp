@@ -36,8 +36,10 @@ void createTexture(const char* path, unsigned int* tex)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     // set texture filtering parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+
 
 
     // load image, create texture and generate mipmaps
@@ -47,8 +49,9 @@ void createTexture(const char* path, unsigned int* tex)
     unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 0);
     if (data)
     {
+        
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
+        //glGenerateMipmap(GL_TEXTURE_2D);
     }
     else
     {
@@ -57,6 +60,26 @@ void createTexture(const char* path, unsigned int* tex)
     float borderColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
     glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
     stbi_image_free(data);
+}
+
+void VAOVBO(unsigned int VAO[], unsigned int VBO[], int id, float data[],int dataSize ,bool hasTexture = false) {
+    glBindVertexArray(VAO[id]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[id]);
+    glBufferData(GL_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
+
+    
+    if(hasTexture){
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+        glEnableVertexAttribArray(1);
+    }
+    else
+    {
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);
+    }
+
 }
 
 int main()
@@ -256,18 +279,23 @@ int main()
     glGenVertexArrays(4, VAO);
     glGenBuffers(4, VBO);
 
-    glBindVertexArray(VAO[0]);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(verticesSide), verticesSide, GL_STATIC_DRAW);
+    VAOVBO(VAO, VBO, 0, verticesSide, sizeof(verticesSide),true);
+    VAOVBO(VAO, VBO, 1, verticesTopBottom, sizeof(verticesTopBottom),true);
+    VAOVBO(VAO, VBO, 2, verticesPillarImage, sizeof(verticesPillarImage),true);
+    VAOVBO(VAO, VBO, 3, verticesPillarBack, sizeof(verticesPillarBack),false);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
+    //glBindVertexArray(VAO[0]);
+    //glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
+    //glBufferData(GL_ARRAY_BUFFER, sizeof(verticesSide), verticesSide, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
+    //glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    //glEnableVertexAttribArray(0);
+
+    //glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    //glEnableVertexAttribArray(1);
 
 
-    glBindVertexArray(VAO[1]);
+    /*glBindVertexArray(VAO[1]);
     glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(verticesTopBottom), verticesTopBottom, GL_STATIC_DRAW);
 
@@ -276,26 +304,26 @@ int main()
     glEnableVertexAttribArray(0);
 
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(1);*/
     
-    glBindVertexArray(VAO[2]);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO[2]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(verticesPillarImage), verticesPillarImage, GL_STATIC_DRAW);
+    //glBindVertexArray(VAO[2]);
+    //glBindBuffer(GL_ARRAY_BUFFER, VBO[2]);
+    //glBufferData(GL_ARRAY_BUFFER, sizeof(verticesPillarImage), verticesPillarImage, GL_STATIC_DRAW);
 
-    
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
+    //
+    //glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    //glEnableVertexAttribArray(0);
 
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
+    //glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    //glEnableVertexAttribArray(1);
 
-    glBindVertexArray(VAO[3]);
+   /* glBindVertexArray(VAO[3]);
     glBindBuffer(GL_ARRAY_BUFFER, VBO[3]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(verticesPillarBack), verticesPillarBack, GL_STATIC_DRAW);
 
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(0);*/
 
 
     unsigned int texture1, texture2,texture3;
@@ -322,8 +350,13 @@ int main()
         processInput(window);
         glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glBindTexture(GL_TEXTURE_2D, texture1);
         ourShader.setInt("checkTex", 0);
+        
+        glBindTexture(GL_TEXTURE_2D, texture3);
+        glBindVertexArray(VAO[2]);
+        glDrawArrays(GL_TRIANGLES,0,24);
+        
+        glBindTexture(GL_TEXTURE_2D, texture1);
 
         ourShader.use();
         glBindVertexArray(VAO[0]); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
@@ -351,16 +384,14 @@ int main()
 
         glDrawArrays(GL_TRIANGLES,0,12);
 
-        
-
-        glBindTexture(GL_TEXTURE_2D, texture3);
-        glBindVertexArray(VAO[2]);
-        glDrawArrays(GL_TRIANGLES,0,24);
-        
         ourShader.setInt("checkTex", 1);
 
         glBindVertexArray(VAO[3]);
         glDrawArrays(GL_TRIANGLES, 0, 24);
+            
+        ourShader.setInt("checkTex", 0);
+
+        
         
 
         glfwSwapBuffers(window);
