@@ -1,13 +1,7 @@
 #define STB_IMAGE_IMPLEMENTATION
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <stb_image.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <shader.h>
-#include <iostream>
-#include <camera.h>
+#include "gallery.h"
+#include "coordinates.h"
+
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -28,59 +22,6 @@ bool firstMouse = true;
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
 
-void createTexture(const char* path, unsigned int* tex)
-{
-    glGenTextures(1, tex);
-    glBindTexture(GL_TEXTURE_2D, *tex);
-    // set the texture wrapping parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    // set texture filtering parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-
-
-
-    // load image, create texture and generate mipmaps
-    int width, height, nrChannels;
-    stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
-    unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 0);
-    if (data)
-    {
-        
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        //glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
-        std::cout << "Failed to load texture" << std::endl;
-    }
-    float borderColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-    glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
-    stbi_image_free(data);
-}
-
-void VAOVBO(unsigned int VAO[], unsigned int VBO[], int id, float data[],int dataSize ,bool hasTexture = false) {
-    glBindVertexArray(VAO[id]);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO[id]);
-    glBufferData(GL_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
-
-    
-    if(hasTexture){
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-        glEnableVertexAttribArray(1);
-    }
-    else
-    {
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-        glEnableVertexAttribArray(0);
-    }
-
-}
 
 int main()
 {
@@ -117,165 +58,9 @@ int main()
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
-   /* float verticesSide[] = {
-         -0.5f,0.5f,-0.5f,0.0f,1.0f,
-        -0.5f,-0.5f,-0.5f,0.0f,0.0f,
-        0.5f,-0.5f,-0.5f,1.0f,0.0f,
-        -0.5f,0.5f,-0.5f,0.0f,1.0f,
-        0.5f,-0.5f,-0.5f,1.0f,0.0f,
-        0.5f,0.5f,-0.5f,1.0f,1.0f,
+  
 
-        0.5f,-0.5f,0.5f,0.0f,0.0f,
-        0.5f,-0.5f,-0.5f,0.0f,1.0f,
-        0.5f,0.5f,-0.5f,1.0f,1.0f,
-        0.5f,-0.5f,0.5f,0.0f,0.0f,
-        0.5f,0.5f,-0.5f,1.0f,1.0f,
-        0.5f,0.5f,0.5f,1.0f,0.0f,
-
-        -0.5f,-0.5f,0.5f,0.0f,0.0f,
-        -0.5f,-0.5f,-0.5f,0.0f,1.0f,
-        -0.5f,0.5f,-0.5f,1.0f,1.0f,
-        -0.5f,-0.5f,0.5f,0.0f,0.0f,
-        -0.5f,0.5f,-0.5f,1.0f,1.0f,
-        -0.5f,0.5f,0.5f,1.0f,0.0f,
-
-    };
-    float verticesTopBottom[] = {
-
-        0.5f,0.5f,-0.5f,1.0f,1.0f,
-        -0.5f,0.5f,-0.5f,0.0f,1.0f,
-        -0.5f,0.5f,0.5f,0.0f,0.0f,
-        0.5f,0.5f,-0.5f,1.0f,1.0f,
-        -0.5f,0.5f,0.5f,0.0f,0.0f,
-        0.5f,0.5f,0.5f,1.0f,0.0f,
-
-        0.5f,-0.5f,-0.5f,1.0f,1.0f,
-        -0.5f,-0.5f,-0.5f,0.0f,1.0f,
-        -0.5f,-0.5f,0.5f,0.0f,0.0f,
-        0.5f,-0.5f,-0.5f,1.0f,1.0f,
-        -0.5f,-0.5f,0.5f,0.0f,0.0f,
-        0.5f,-0.5f,0.5f,1.0f,0.0f,
-    };*/
-
-    float verticesSide[] = {
-        /*   -50.5f,50.5f,50.5f,0.0f,1.0f,
-           -50.5f,-50.5f,50.5f,0.0f,0.0f,
-           50.5f,-50.5f,50.5f,1.0f,0.0f,
-           -50.5f,50.5f,50.5f,0.0f,1.0f,
-           50.5f,-50.5f,50.5f,1.0f,0.0f,
-           50.5f,50.5f,50.5f,1.0f,1.0f,*/
-
-           -50.5f, 21.5f, -75.5f, 0.0f, 1.0f,
-           -50.5f, -21.5f, -75.5f, 0.0f, 0.0f,
-           50.5f, -21.5f, -75.5f, 1.0f, 0.0f,
-           -50.5f, 21.5f, -75.5f, 0.0f, 1.0f,
-           50.5f, -21.5f, -75.5f, 1.0f, 0.0f,
-           50.5f, 21.5f, -75.5f, 1.0f, 1.0f,
-
-           50.5f, -21.5f, 75.5f, 0.0f, 0.0f,
-           50.5f, -21.5f, -75.5f, 0.0f, 1.0f,
-           50.5f, 21.5f, -75.5f, 1.0f, 1.0f,
-           50.5f, -21.5f, 75.5f, 0.0f, 0.0f,
-           50.5f, 21.5f, -75.5f, 1.0f, 1.0f,
-           50.5f, 21.5f, 75.5f, 1.0f, 0.0f,
-
-           -50.5f, -21.5f, 75.5f, 0.0f, 0.0f,
-           -50.5f, -21.5f, -75.5f, 0.0f, 1.0f,
-           -50.5f, 21.5f, -75.5f, 1.0f, 1.0f,
-           -50.5f, -21.5f, 75.5f, 0.0f, 0.0f,
-           -50.5f, 21.5f, -75.5f, 1.0f, 1.0f,
-           -50.5f, 21.5f, 75.5f, 1.0f, 0.0f,
-    };
-
-    float verticesTopBottom[] = {
-        50.5f, 21.5f, -75.5f, 1.0f, 1.0f,
-        -50.5f, 21.5f, -75.5f, 0.0f, 1.0f,
-        -50.5f, 21.5f, 75.5f, 0.0f, 0.0f,
-        50.5f, 21.5f, -75.5f, 1.0f, 1.0f,
-        -50.5f, 21.5f, 75.5f, 0.0f, 0.0f,
-        50.5f, 21.5f, 75.5f, 1.0f, 0.0f,
-
-        50.5f, -21.5f, -75.5f, 1.0f, 1.0f,
-        -50.5f, -21.5f, -75.5f, 0.0f, 1.0f,
-        -50.5f, -21.5f, 75.5f, 0.0f, 0.0f,
-        50.5f, -21.5f, -75.5f, 1.0f, 1.0f,
-        -50.5f, -21.5f, 75.5f, 0.0f, 0.0f,
-        50.5f, -21.5f, 75.5f, 1.0f, 0.0f
-    };
-
-    float verticesPillarBack[] = {
-        //front
-       -20.5f,21.5f,20.5f,   
-       -20.5f,-21.5f,20.5f,  
-       20.5f,-21.5f,20.5f,   
-       -20.5f,21.5f,20.5f,   
-       20.5f,-21.5f,20.5f,   
-       20.5f,21.5f,20.5f,    
-
-       -20.5f,21.5f,-20.5f,  
-       -20.5f,-21.5f,-20.5f, 
-       20.5f,-21.5f,-20.5f,  
-       -20.5f,21.5f,-20.5f,  
-       20.5f,-21.5f,-20.5f,  
-       20.5f,21.5f,-20.5f,   
-
-       20.5f,-21.5f,20.5f,   
-       20.5f,-21.5f,-20.5f,  
-       20.5f,21.5f,-20.5f,   
-       20.5f,-21.5f,20.5f,   
-       20.5f,21.5f,-20.5f,   
-       20.5f,21.5f,20.5f,    
-
-       -20.5f,-21.5f,20.5f,  
-       -20.5f,-21.5f,-20.5f, 
-       -20.5f,21.5f,-20.5f,  
-       -20.5f,-21.5f,20.5f,  
-       -20.5f,21.5f,-20.5f,  
-       -20.5f,21.5f,20.5f,   
-
-    };
-
-    /*float verticesPillarImage[] = {
-        //front
-       -16.5f, 17.5f, 20.5f, 0.0f, 1.0f,
-       -16.5f, -17.5f, 20.5f, 0.0f, 0.0f,
-       16.5f, -17.5f, 20.5f, 1.0f, 0.0f,
-       -16.5f, 17.5f, 20.5f, 0.0f, 1.0f,
-       16.5f, -17.5f, 20.5f, 1.0f, 0.0f,
-       16.5f, 17.5f, 20.5f, 1.0f, 1.0f,
-
-       //Back
-       -16.5f, 17.5f, -20.5f, 0.0f, 1.0f,
-       -16.5f, -17.5f, -20.5f, 0.0f, 0.0f,
-       16.5f, -17.5f, -20.5f, 1.0f, 0.0f,
-       -16.5f, 17.5f, -20.5f, 0.0f, 1.0f,
-       16.5f, -17.5f, -20.5f, 1.0f, 0.0f,
-       16.5f, 17.5f, -20.5f, 1.0f, 1.0f,
-
-       20.5f, -17.5f, 16.5f, 0.0f, 1.0f,
-       20.5f, -17.5f, -16.5f, 0.0f, 0.0f,
-       20.5f, 17.5f, -16.5f, 1.0f, 0.0f,
-       20.5f, -17.5f, 16.5f, 0.0f, 1.0f,
-       20.5f, 17.5f, -16.5f, 1.0f, 0.0f,
-       20.5f, 17.5f, 16.5f, 1.0f, 1.0f,
-
-       -20.5f, -17.5f, 16.5f, 0.0f, 1.0f,
-       -20.5f, -17.5f, -16.5f, 0.0f, 0.0f,
-       -20.5f, 17.5f, -16.5f, 1.0f, 0.0f,
-       -20.5f, -17.5f, 16.5f, 0.0f, 1.0f,
-       -20.5f, 17.5f, -16.5f, 1.0f, 0.0f,
-       -20.5f, 17.5f, 16.5f, 1.0f, 1.0f,
-    };
-    */
     
-    float verticesPillarImage[] = {
-        -16.5f, 17.5f, 20.5f, 0.0f, 1.0f,
-       -16.5f, -17.5f, 20.5f, 0.0f, 0.0f,
-       16.5f, -17.5f, 20.5f, 1.0f, 0.0f,
-       -16.5f, 17.5f, 20.5f, 0.0f, 1.0f,
-       16.5f, -17.5f, 20.5f, 1.0f, 0.0f,
-       16.5f, 17.5f, 20.5f, 1.0f, 1.0f,
-    };
     
     // build and compile our shader program
     // ------------------------------------
@@ -289,7 +74,6 @@ int main()
     VAOVBO(VAO, VBO, 0, verticesSide, sizeof(verticesSide),true);
     VAOVBO(VAO, VBO, 1, verticesTopBottom, sizeof(verticesTopBottom),true);
     VAOVBO(VAO, VBO, 2, verticesPillarImage, sizeof(verticesPillarImage),true);
-    
     VAOVBO(VAO, VBO, 3, verticesPillarBack, sizeof(verticesPillarBack),false);
 
 
@@ -298,7 +82,7 @@ int main()
     createTexture("./external/assets/wood.png", &texture2);
     createTexture("./external/assets/arts/art1.png", &texture3);
 
-    glEnable(GL_DEPTH_TEST);
+    //glEnable(GL_DEPTH_TEST);
 
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -321,7 +105,7 @@ int main()
         
         glBindTexture(GL_TEXTURE_2D, texture3);
         glBindVertexArray(VAO[2]);
-        glDrawArrays(GL_TRIANGLES,0,6);
+        glDrawArrays(GL_TRIANGLES,0,24);
         
         glBindTexture(GL_TEXTURE_2D, texture1);
 
