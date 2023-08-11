@@ -76,15 +76,16 @@ int main()
     VAOVBO(VAO, VBO, 2, verticesBottom, sizeof(verticesBottom),true);
     VAOVBO(VAO, VBO, 3, verticesPillarBack, sizeof(verticesPillarBack),false);
     VAOVBO(VAO, VBO, 4, verticesPillarImageFront, sizeof(verticesPillarImageFront),true);
-    //VAOVBO(VAO, VBO, 5, verticesPillarImageBack, sizeof(verticesPillarImageBack),true);
+    VAOVBO(VAO, VBO, 5, ShivaImg, sizeof(ShivaImg),true);
     VAOVBO(VAO, VBO, 6, verticesPillarImageRight, sizeof(verticesPillarImageRight),true);
     VAOVBO(VAO, VBO, 7, verticesPillarImageLeft, sizeof(verticesPillarImageLeft),true);
 
 
-    unsigned int textureTop, textureBottom,texture3;
+    unsigned int textureTop, textureBottom,texture3,TexShivaG;
     createTexture("./external/assets/wall.jpg", &textureTop);
     createTexture("./external/assets/wood.png", &textureBottom);
-    createTexture("./external/assets/arts/art1.png", &texture3);
+    createTexture("./external/assets/arts/art1.png", &texture3); 
+    createTexture("./external/assets/shivaG.jpg", &TexShivaG);
 
     glEnable(GL_DEPTH_TEST);
 
@@ -144,7 +145,12 @@ int main()
         //glBindTexture(GL_TEXTURE_2D, texture3);
         //glBindVertexArray(VAO[5]);
         //glDrawArrays(GL_TRIANGLES,0,6);
-        //Right
+                
+         ////ShivaG
+        glBindTexture(GL_TEXTURE_2D, TexShivaG);
+        glBindVertexArray(VAO[5]);
+        glDrawArrays(GL_TRIANGLES,0,6);
+       
         glBindTexture(GL_TEXTURE_2D, texture3);
         glBindVertexArray(VAO[6]);
         glDrawArrays(GL_TRIANGLES,0,6);
@@ -156,7 +162,7 @@ int main()
         ourShader.setInt("checkTex", 1);
         //Pillar
         glBindVertexArray(VAO[3]);
-        glDrawArrays(GL_TRIANGLES, 0, 18);
+        glDrawArrays(GL_TRIANGLES, 0, 42);
 
         
         ourShader.use();
