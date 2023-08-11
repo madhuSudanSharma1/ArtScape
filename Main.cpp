@@ -156,7 +156,7 @@ int main()
         ourShader.setInt("checkTex", 1);
         //Pillar
         glBindVertexArray(VAO[3]);
-        glDrawArrays(GL_TRIANGLES, 0, 18);
+        glDrawArrays(GL_TRIANGLES, 0, 42);
 
         
         ourShader.use();
