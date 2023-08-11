@@ -12,3 +12,9 @@
 
 void createTexture(const char* path, unsigned int* tex);
 void VAOVBO(unsigned int VAO[], unsigned int VBO[], int id, float data[], int dataSize, bool hasTexture = false);
+//void generateCoord(const float& zmax, const float& zmin, const float& xmax, const float& xmin, float& coord)
+//{
+//	coord = {
+//
+//	};
+//}

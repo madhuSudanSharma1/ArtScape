@@ -36,7 +36,7 @@ int main()
 
     // glfw window creation
     // --------------------
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "ArtScape- Gallery at your Space", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "ArtScape - Gallery at your Space", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -67,22 +67,26 @@ int main()
     Shader ourShader("./Shaders/shader.vs", "./Shaders/shader.fs");
 
 
-    unsigned int VAO[4], VBO[4];
-    glGenVertexArrays(4, VAO);
-    glGenBuffers(4, VBO);
+    unsigned int VAO[8], VBO[8];
+    glGenVertexArrays(8, VAO);
+    glGenBuffers(8, VBO);
 
-    VAOVBO(VAO, VBO, 0, verticesSide, sizeof(verticesSide),true);
-    VAOVBO(VAO, VBO, 1, verticesTopBottom, sizeof(verticesTopBottom),true);
-    VAOVBO(VAO, VBO, 2, verticesPillarImage, sizeof(verticesPillarImage),true);
+    VAOVBO(VAO, VBO, 0, verticesSide, sizeof(verticesSide),false);
+    VAOVBO(VAO, VBO, 1, verticesTop, sizeof(verticesTop),true);
+    VAOVBO(VAO, VBO, 2, verticesBottom, sizeof(verticesBottom),true);
     VAOVBO(VAO, VBO, 3, verticesPillarBack, sizeof(verticesPillarBack),false);
+    VAOVBO(VAO, VBO, 4, verticesPillarImageFront, sizeof(verticesPillarImageFront),true);
+    //VAOVBO(VAO, VBO, 5, verticesPillarImageBack, sizeof(verticesPillarImageBack),true);
+    VAOVBO(VAO, VBO, 6, verticesPillarImageRight, sizeof(verticesPillarImageRight),true);
+    VAOVBO(VAO, VBO, 7, verticesPillarImageLeft, sizeof(verticesPillarImageLeft),true);
 
 
-    unsigned int texture1, texture2,texture3;
-    createTexture("./external/assets/wall.jpg", &texture1);
-    createTexture("./external/assets/wood.png", &texture2);
+    unsigned int textureTop, textureBottom,texture3;
+    createTexture("./external/assets/wall.jpg", &textureTop);
+    createTexture("./external/assets/wood.png", &textureBottom);
     createTexture("./external/assets/arts/art1.png", &texture3);
 
-    //glEnable(GL_DEPTH_TEST);
+    glEnable(GL_DEPTH_TEST);
 
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -97,22 +101,9 @@ int main()
         float currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
-
         processInput(window);
         glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        ourShader.setInt("checkTex", 0);
-        
-        glBindTexture(GL_TEXTURE_2D, texture3);
-        glBindVertexArray(VAO[2]);
-        glDrawArrays(GL_TRIANGLES,0,24);
-        
-        glBindTexture(GL_TEXTURE_2D, texture1);
-
-        ourShader.use();
-        glBindVertexArray(VAO[0]); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
-        
-        // pass projection matrix to shader (note that in this case it could change every frame)
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 200.0f);
         ourShader.setMat4("projection", projection);
 
@@ -124,25 +115,55 @@ int main()
         model = glm::translate(model, glm::vec3(1.0f,0.0f,0.0f));
         ourShader.setMat4("model", model);
 
-        glDrawArrays(GL_TRIANGLES,0,18);
-        
-
-
-        glBindTexture(GL_TEXTURE_2D, texture2);
-
-
-        glBindVertexArray(VAO[1]);
-
-        glDrawArrays(GL_TRIANGLES,0,12);
 
         ourShader.setInt("checkTex", 1);
-
-        glBindVertexArray(VAO[3]);
-        glDrawArrays(GL_TRIANGLES, 0, 24);
-            
+        //Draw 3 Sides
+        glBindVertexArray(VAO[0]);
+        glDrawArrays(GL_TRIANGLES,0,18);
+        
         ourShader.setInt("checkTex", 0);
+        //Top
+        glBindTexture(GL_TEXTURE_2D, textureTop);
+        glBindVertexArray(VAO[1]);
+        glDrawArrays(GL_TRIANGLES,0,6);
+
+        //Bottom
+        glBindTexture(GL_TEXTURE_2D, textureBottom);
+        glBindVertexArray(VAO[2]);
+        glDrawArrays(GL_TRIANGLES,0,6);
+        
+        
+        
+        ourShader.setInt("checkTex", 0);
+        //PillarImage
+        //Front
+        glBindTexture(GL_TEXTURE_2D, texture3);
+        glBindVertexArray(VAO[4]);
+        glDrawArrays(GL_TRIANGLES,0,6);
+        ////Back
+        //glBindTexture(GL_TEXTURE_2D, texture3);
+        //glBindVertexArray(VAO[5]);
+        //glDrawArrays(GL_TRIANGLES,0,6);
+        //Right
+        glBindTexture(GL_TEXTURE_2D, texture3);
+        glBindVertexArray(VAO[6]);
+        glDrawArrays(GL_TRIANGLES,0,6);
+        //Left
+        glBindTexture(GL_TEXTURE_2D, texture3);
+        glBindVertexArray(VAO[7]);
+        glDrawArrays(GL_TRIANGLES,0,6);
+        
+        ourShader.setInt("checkTex", 1);
+        //Pillar
+        glBindVertexArray(VAO[3]);
+        glDrawArrays(GL_TRIANGLES, 0, 18);
 
         
+        ourShader.use();
+        glBindVertexArray(VAO[0]); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
+        
+        // pass projection matrix to shader (note that in this case it could change every frame)
+
         
 
         glfwSwapBuffers(window);
