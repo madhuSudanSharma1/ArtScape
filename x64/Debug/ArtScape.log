@@ -1,2 +1,10 @@
 ﻿  Main.cpp
-  ArtScape.vcxproj -> C:\Users\Madhav\Desktop\ArtScape\x64\Debug\ArtScape.exe
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\vector(1885,1): error C2036: 'float (*)[]': unknown size
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\vector(1882,34): message : while compiling class template member function '_Ty (&std::vector<_Ty,std::allocator<_Ty>>::operator [](const unsigned __int64) noexcept)'
+          with
+          [
+              _Ty=float []
+          ]
+D:\5th sem\Computer Graphics\New folder\ArtScape\Main.cpp(63,26): message : see the first reference to 'std::vector<float [],std::allocator<float []>>::operator []' in 'main'
+D:\5th sem\Computer Graphics\New folder\ArtScape\coordinates.h(82,22): message : see reference to class template instantiation 'std::vector<float [],std::allocator<float []>>' being compiled
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\vector(1890,1): error C2036: 'float (*)[]': unknown size

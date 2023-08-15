@@ -1,7 +1,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "gallery.h"
 #include "coordinates.h"
-
+#include <vector>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -59,18 +59,20 @@ int main()
         return -1;
     }
   
-
-    
+    std::vector<float[]> verticessss=getCoordinate(4);
+    float* verticesImage1=verticessss[0];//.pop_back();
+    float* verticesImage2=verticessss[1];//.pop_back();
+    float* verticesImage3=verticessss[2];//.pop_back();
+    float* verticesImage4 = verticessss[3];//.pop_back();
     
     // build and compile our shader program
     // ------------------------------------
     Shader ourShader("./Shaders/shader.vs", "./Shaders/shader.fs");
 
 
-    unsigned int VAO[8], VBO[8];
-    glGenVertexArrays(8, VAO);
-    glGenBuffers(8, VBO);
-
+    unsigned int VAO[20], VBO[20];
+    glGenVertexArrays(20, VAO);
+    glGenBuffers(20, VBO);
     VAOVBO(VAO, VBO, 0, verticesSide, sizeof(verticesSide),false);
     VAOVBO(VAO, VBO, 1, verticesTop, sizeof(verticesTop),true);
     VAOVBO(VAO, VBO, 2, verticesBottom, sizeof(verticesBottom),true);
@@ -79,12 +81,21 @@ int main()
     //VAOVBO(VAO, VBO, 5, verticesPillarImageBack, sizeof(verticesPillarImageBack),true);
     VAOVBO(VAO, VBO, 6, verticesPillarImageRight, sizeof(verticesPillarImageRight),true);
     VAOVBO(VAO, VBO, 7, verticesPillarImageLeft, sizeof(verticesPillarImageLeft),true);
+    VAOVBO(VAO, VBO, 5, verticesImage1, sizeof(verticesImage1),true);
+    VAOVBO(VAO, VBO, 8, verticesImage2, sizeof(verticesImage2),true);
+    VAOVBO(VAO, VBO, 9, verticesImage3, sizeof(verticesImage3),true);
+    VAOVBO(VAO, VBO, 10, verticesImage4, sizeof(verticesImage4),true);
 
 
-    unsigned int textureTop, textureBottom,texture3;
+
+    unsigned int textureTop, textureBottom,texture3,image1,image2,image3,image4;
     createTexture("./external/assets/wall.jpg", &textureTop);
     createTexture("./external/assets/wood.png", &textureBottom);
     createTexture("./external/assets/arts/art1.png", &texture3);
+    createTexture("./external/assets/arts/art1.png", &image1);
+    createTexture("./external/assets/arts/art1.png", &image2);
+    createTexture("./external/assets/arts/art1.png", &image3);
+    createTexture("./external/assets/arts/art1.png", &image4);
 
     glEnable(GL_DEPTH_TEST);
 
@@ -153,12 +164,32 @@ int main()
         glBindVertexArray(VAO[7]);
         glDrawArrays(GL_TRIANGLES,0,6);
         
+        //Main Images
+        glBindTexture(GL_TEXTURE_2D, image1);
+        glBindVertexArray(VAO[5]);
+        glDrawArrays(GL_TRIANGLES,0,6);
+        
+        glBindTexture(GL_TEXTURE_2D, image2);
+        glBindVertexArray(VAO[8]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        
+        glBindTexture(GL_TEXTURE_2D, image3);
+        glBindVertexArray(VAO[9]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        glBindTexture(GL_TEXTURE_2D, image4);
+        glBindVertexArray(VAO[10]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        
         ourShader.setInt("checkTex", 1);
         //Pillar
         glBindVertexArray(VAO[3]);
         glDrawArrays(GL_TRIANGLES, 0, 42);
 
         
+
+
+
         ourShader.use();
         glBindVertexArray(VAO[0]); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
         

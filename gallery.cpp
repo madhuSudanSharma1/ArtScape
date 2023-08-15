@@ -31,7 +31,7 @@ void createTexture(const char* path, unsigned int* tex)
     stbi_image_free(data);
 };
 
-void VAOVBO(unsigned int VAO[], unsigned int VBO[], int id, float data[], int dataSize, bool hasTexture) {
+void VAOVBO(unsigned int VAO[], unsigned int VBO[], int id, float* data, int dataSize, bool hasTexture) {
     glBindVertexArray(VAO[id]);
     glBindBuffer(GL_ARRAY_BUFFER, VBO[id]);
     glBufferData(GL_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
