@@ -78,7 +78,7 @@ int main()
     VAOVBO(VAO, VBO, 2, verticesBottom, sizeof(verticesBottom),true);
     VAOVBO(VAO, VBO, 3, verticesPillarBack, sizeof(verticesPillarBack),false);
     VAOVBO(VAO, VBO, 4, verticesPillarImageFront, sizeof(verticesPillarImageFront),true);
-    //VAOVBO(VAO, VBO, 5, verticesPillarImageBack, sizeof(verticesPillarImageBack),true);
+    VAOVBO(VAO, VBO, 5, ShivaImg, sizeof(ShivaImg),true);
     VAOVBO(VAO, VBO, 6, verticesPillarImageRight, sizeof(verticesPillarImageRight),true);
     VAOVBO(VAO, VBO, 7, verticesPillarImageLeft, sizeof(verticesPillarImageLeft),true);
     VAOVBO(VAO, VBO, 5, verticesImage1, sizeof(verticesImage1),true);
@@ -87,6 +87,7 @@ int main()
     VAOVBO(VAO, VBO, 10, verticesImage4, sizeof(verticesImage4),true);
 
 
+<<<<<<< HEAD
 
     unsigned int textureTop, textureBottom,texture3,image1,image2,image3,image4;
     createTexture("./external/assets/wall.jpg", &textureTop);
@@ -96,6 +97,13 @@ int main()
     createTexture("./external/assets/arts/art1.png", &image2);
     createTexture("./external/assets/arts/art1.png", &image3);
     createTexture("./external/assets/arts/art1.png", &image4);
+=======
+    unsigned int textureTop, textureBottom,texture3,TexShivaG;
+    createTexture("./external/assets/wall.jpg", &textureTop);
+    createTexture("./external/assets/wood.png", &textureBottom);
+    createTexture("./external/assets/arts/art1.png", &texture3); 
+    createTexture("./external/assets/shivaG.jpg", &TexShivaG);
+>>>>>>> 4103d3f1e23fe7b650bb2ea46404027a1c94cfe0
 
     glEnable(GL_DEPTH_TEST);
 
@@ -155,7 +163,12 @@ int main()
         //glBindTexture(GL_TEXTURE_2D, texture3);
         //glBindVertexArray(VAO[5]);
         //glDrawArrays(GL_TRIANGLES,0,6);
-        //Right
+                
+         ////ShivaG
+        glBindTexture(GL_TEXTURE_2D, TexShivaG);
+        glBindVertexArray(VAO[5]);
+        glDrawArrays(GL_TRIANGLES,0,6);
+       
         glBindTexture(GL_TEXTURE_2D, texture3);
         glBindVertexArray(VAO[6]);
         glDrawArrays(GL_TRIANGLES,0,6);
