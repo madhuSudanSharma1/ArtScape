@@ -64,7 +64,7 @@ vec3 getLit(vec3 objColor)
 
 
 }
-
+/*
 vec3 getLit(vec3 objColor)
 {
 	vec3 viewDir=normalize(viewPos-FragPos);
@@ -93,6 +93,7 @@ vec3 getLit(vec3 objColor)
 
 
 }
+*/
 
 void main()
 {

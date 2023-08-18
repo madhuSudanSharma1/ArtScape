@@ -1,12 +1,8 @@
 #include "gallery.h"
 #include "coordinates.h"
-<<<<<<< HEAD
 #define STB_IMAGE_IMPLEMENTATION
 #include <model.h>
 
-=======
-#include <vector>
->>>>>>> 9874f748510cecfb6364883af303b6bea352a60b
 
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -157,11 +153,7 @@ int main()
         ourShader.setMat4("model", model);
 
         ourShader.setVec3("viewPos", camera.Position);
-<<<<<<< HEAD
         
-=======
-
->>>>>>> 9874f748510cecfb6364883af303b6bea352a60b
         ourShader.setInt("checkTex", 1);
         //Draw 3 Sides
         glBindVertexArray(VAO[0]);
