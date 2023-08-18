@@ -3,6 +3,7 @@
 #include "coordinates.h"
 #include <vector>
 
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
@@ -59,11 +60,11 @@ int main()
         return -1;
     }
   
-    std::vector<float[]> verticessss=getCoordinate(4);
-    float* verticesImage1=verticessss[0];//.pop_back();
-    float* verticesImage2=verticessss[1];//.pop_back();
-    float* verticesImage3=verticessss[2];//.pop_back();
-    float* verticesImage4 = verticessss[3];//.pop_back();
+    //std::vector<float[]> verticessss=getCoordinate(4);
+    //float* verticesImage1=verticessss[0];//.pop_back();
+    //float* verticesImage2=verticessss[1];//.pop_back();
+    //float* verticesImage3=verticessss[2];//.pop_back();
+    //float* verticesImage4 = verticessss[3];//.pop_back();
     
     // build and compile our shader program
     // ------------------------------------
@@ -74,36 +75,50 @@ int main()
     glGenVertexArrays(20, VAO);
     glGenBuffers(20, VBO);
     VAOVBO(VAO, VBO, 0, verticesSide, sizeof(verticesSide),false);
-    VAOVBO(VAO, VBO, 1, verticesTop, sizeof(verticesTop),true);
-    VAOVBO(VAO, VBO, 2, verticesBottom, sizeof(verticesBottom),true);
-    VAOVBO(VAO, VBO, 3, verticesPillarBack, sizeof(verticesPillarBack),false);
+    VAOVBO(VAO, VBO, 1, verticesTop, sizeof(verticesTop),false);
+    VAOVBO(VAO, VBO, 2, verticesBottom, sizeof(verticesBottom),false);
+    VAOVBO(VAO, VBO, 3, verticesPillarBack, sizeof(verticesPillarBack), false);
     VAOVBO(VAO, VBO, 4, verticesPillarImageFront, sizeof(verticesPillarImageFront),true);
-    VAOVBO(VAO, VBO, 5, ShivaImg, sizeof(ShivaImg),true);
+    //VAOVBO(VAO, VBO, 5, ShivaImg, sizeof(ShivaImg),true);
     VAOVBO(VAO, VBO, 6, verticesPillarImageRight, sizeof(verticesPillarImageRight),true);
     VAOVBO(VAO, VBO, 7, verticesPillarImageLeft, sizeof(verticesPillarImageLeft),true);
+    //around Image
     VAOVBO(VAO, VBO, 5, verticesImage1, sizeof(verticesImage1),true);
     VAOVBO(VAO, VBO, 8, verticesImage2, sizeof(verticesImage2),true);
     VAOVBO(VAO, VBO, 9, verticesImage3, sizeof(verticesImage3),true);
     VAOVBO(VAO, VBO, 10, verticesImage4, sizeof(verticesImage4),true);
+    VAOVBO(VAO, VBO, 11, verticesImage5, sizeof(verticesImage5),true);
+    VAOVBO(VAO, VBO, 12, verticesImage6, sizeof(verticesImage6),true);
+    VAOVBO(VAO, VBO, 13, verticesImage7, sizeof(verticesImage7),true);
+    VAOVBO(VAO, VBO, 14, verticesImage8, sizeof(verticesImage8),true);
+    VAOVBO(VAO, VBO, 15, verticesImage9, sizeof(verticesImage9),true);
+    VAOVBO(VAO, VBO, 16, verticesImage10, sizeof(verticesImage10),true);
+    VAOVBO(VAO, VBO, 17, verticesImage11, sizeof(verticesImage11),true);
+    VAOVBO(VAO, VBO, 18, verticesImage12, sizeof(verticesImage12),true);
+    VAOVBO(VAO, VBO, 19, verticesImage13, sizeof(verticesImage13),true);
+
+    
 
 
-<<<<<<< HEAD
-
-    unsigned int textureTop, textureBottom,texture3,image1,image2,image3,image4;
+    unsigned int textureTop, textureBottom,texture3,image1,image2,image3,image4,image5,image6,image7,image8,image9,image10,image11,image12,image13, texShivaG;
     createTexture("./external/assets/wall.jpg", &textureTop);
     createTexture("./external/assets/wood.png", &textureBottom);
     createTexture("./external/assets/arts/art1.png", &texture3);
-    createTexture("./external/assets/arts/art1.png", &image1);
-    createTexture("./external/assets/arts/art1.png", &image2);
-    createTexture("./external/assets/arts/art1.png", &image3);
-    createTexture("./external/assets/arts/art1.png", &image4);
-=======
-    unsigned int textureTop, textureBottom,texture3,TexShivaG;
-    createTexture("./external/assets/wall.jpg", &textureTop);
-    createTexture("./external/assets/wood.png", &textureBottom);
-    createTexture("./external/assets/arts/art1.png", &texture3); 
-    createTexture("./external/assets/shivaG.jpg", &TexShivaG);
->>>>>>> 4103d3f1e23fe7b650bb2ea46404027a1c94cfe0
+    createTexture("./external/assets/arts/image1.jpg", &image1);
+    createTexture("./external/assets/arts/image1.jpg", &image2);
+    createTexture("./external/assets/arts/image1.jpg", &image3);
+    createTexture("./external/assets/arts/image1.jpg", &image4);
+    createTexture("./external/assets/arts/image1.jpg", &image5);
+    createTexture("./external/assets/arts/image1.jpg", &image6);
+    createTexture("./external/assets/arts/image1.jpg", &image7);
+    createTexture("./external/assets/arts/image1.jpg", &image8);
+    createTexture("./external/assets/arts/image1.jpg", &image9);
+    createTexture("./external/assets/arts/image1.jpg", &image10);
+    createTexture("./external/assets/arts/image1.jpg", &image11);
+    createTexture("./external/assets/arts/image1.jpg", &image12);
+    createTexture("./external/assets/arts/image1.jpg", &image13);
+
+    //createTexture("./external/assets/shivaG.jpg", &texShivaG);
 
     glEnable(GL_DEPTH_TEST);
 
@@ -116,12 +131,13 @@ int main()
     // -----------
     while (!glfwWindowShouldClose(window))
     {
+        //glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
         float currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
         processInput(window);
-        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 200.0f);
         ourShader.setMat4("projection", projection);
@@ -134,23 +150,20 @@ int main()
         model = glm::translate(model, glm::vec3(1.0f,0.0f,0.0f));
         ourShader.setMat4("model", model);
 
+        ourShader.setVec3("viewPos", camera.Position);
 
         ourShader.setInt("checkTex", 1);
         //Draw 3 Sides
         glBindVertexArray(VAO[0]);
         glDrawArrays(GL_TRIANGLES,0,18);
         
-        ourShader.setInt("checkTex", 0);
+        
         //Top
-        glBindTexture(GL_TEXTURE_2D, textureTop);
         glBindVertexArray(VAO[1]);
         glDrawArrays(GL_TRIANGLES,0,6);
-
         //Bottom
-        glBindTexture(GL_TEXTURE_2D, textureBottom);
         glBindVertexArray(VAO[2]);
         glDrawArrays(GL_TRIANGLES,0,6);
-        
         
         
         ourShader.setInt("checkTex", 0);
@@ -165,7 +178,7 @@ int main()
         //glDrawArrays(GL_TRIANGLES,0,6);
                 
          ////ShivaG
-        glBindTexture(GL_TEXTURE_2D, TexShivaG);
+        glBindTexture(GL_TEXTURE_2D, image1);
         glBindVertexArray(VAO[5]);
         glDrawArrays(GL_TRIANGLES,0,6);
        
@@ -193,16 +206,49 @@ int main()
         glBindTexture(GL_TEXTURE_2D, image4);
         glBindVertexArray(VAO[10]);
         glDrawArrays(GL_TRIANGLES, 0, 6);
-        
+
+        glBindTexture(GL_TEXTURE_2D, image5);
+        glBindVertexArray(VAO[11]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        glBindTexture(GL_TEXTURE_2D, image6);
+        glBindVertexArray(VAO[12]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        glBindTexture(GL_TEXTURE_2D, image7);
+        glBindVertexArray(VAO[13]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        glBindTexture(GL_TEXTURE_2D, image8);
+        glBindVertexArray(VAO[14]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        glBindTexture(GL_TEXTURE_2D, image9);
+        glBindVertexArray(VAO[15]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        glBindTexture(GL_TEXTURE_2D, image10);
+        glBindVertexArray(VAO[16]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        glBindTexture(GL_TEXTURE_2D, image11);
+        glBindVertexArray(VAO[17]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        glBindTexture(GL_TEXTURE_2D, image12);
+        glBindVertexArray(VAO[18]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        glBindTexture(GL_TEXTURE_2D, image13);
+        glBindVertexArray(VAO[19]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
         ourShader.setInt("checkTex", 1);
+
         //Pillar
+        ourShader.setInt("checkTex", 1);
         glBindVertexArray(VAO[3]);
         glDrawArrays(GL_TRIANGLES, 0, 42);
-
         
-
-
-
         ourShader.use();
         glBindVertexArray(VAO[0]); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
         

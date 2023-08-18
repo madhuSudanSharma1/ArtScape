@@ -29,7 +29,9 @@ const float PITCH       =  0.0f;
 const float SPEED       =  10.0f;
 const float SENSITIVITY =  0.1f;
 const float ZOOM        =  45.0f;
-
+const float XC = 50.5f;
+const float YC = 21.5f;
+const float ZC = 75.5f;
 
 // An abstract camera class that processes input and calculates the corresponding Euler Angles, Vectors and Matrices for use in OpenGL
 class Camera
@@ -79,18 +81,18 @@ public:
     void ProcessKeyboard(Camera_Movement direction, const float &deltaTime)
     {
         float velocity = MovementSpeed * deltaTime;
-
-       /* if (Position.x > XC && direction == RIGHT ||
-            Position.x < -XC && direction == LEFT ||
-            Position.y > YC && direction == UP ||
-            Position.y < -YC && direction == DOWN ||
-            Position.z > ZC && direction == FORWARD ||
-            Position.z < -ZC && direction == FORWARD
-            )
-        {
-            return;
-        }*/
-
+        if (Position.x > XC - 10)
+            Position.x = XC - 10;
+        if(Position.x<-XC+10)
+            Position.x = -XC + 10;
+        if (Position.y > YC - 10)
+            Position.y = YC - 10;
+        if (Position.y < -YC + 10)
+            Position.y = -YC + 10;
+        if (Position.z > ZC + 26)
+            Position.z = ZC + 26;
+        if (Position.z < -ZC + 10)
+            Position.z = -ZC + 10;
 
         if (direction == FORWARD)
             Position += Front * velocity;
@@ -173,16 +175,8 @@ private:
         // also re-calculate the Right and Up vector
         Right = glm::normalize(glm::cross(Front, WorldUp));  // normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
         Up    = glm::normalize(glm::cross(Right, Front));
-        avoidCameraThroghWalls();
+       
 
-    }
-    void avoidCameraThroghWalls()
-    {
-        if (Position.z>150)
-        {
-            std::cout << Position.x;
-            Position.x = 100.0f;
-        }
     }
 };
 #endif
