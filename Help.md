@@ -5,5 +5,5 @@
 | ↑              | Move Camera Upward                         |
 | ↓              | Move Camera Downward                       |
 | →, ←           | Rotate Camera: Left, Right                 |
-| ↑              | Rotate Camera Upward                       |
-| ↓              | Rotate Camera Downward                     |
+| U              | Rotate Camera Upward                       |
+| V              | Rotate Camera Downward                     |
