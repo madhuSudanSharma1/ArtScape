@@ -93,6 +93,75 @@ public:
             Position.z = ZC + 26;
         if (Position.z < -ZC + 10)
             Position.z = -ZC + 10;
+        if (Position.x > -15.5 && Position.x < 15.5)
+        {
+            if (Position.z < 27.5 && Position.z > 15.5)
+            {
+                Position.z = 27.5;
+            }
+            if (Position.z > 5.5 && Position.z < 15.5)
+            {
+                Position.z = 5.5;
+            }
+
+            if (Position.z > -27.5 && Position.z < -19.5)
+            {
+                
+                if (Position.y < 5.5)
+                {
+
+                    if (Position.x < -4 || Position.x>6)
+                    {
+                        Position.z = -16.5;
+                    }
+                }
+                else
+                {
+                    Position.z = -16.5;
+                }
+                
+            }
+            if (Position.z < -20.5 && Position.z > -18.5)
+            {
+
+                if (Position.y < 5.5)
+                {
+
+                    if (Position.x < -4 || Position.x>6)
+                    {
+                        Position.z = -14.5;
+                    }
+                }
+                else
+                {
+                    Position.z = -27.5;
+                }
+
+            }
+
+        }
+
+        if (Position.z > -20.5 && Position.z < 20.5)
+        {
+            if (Position.x > -18.5 && Position.x < -15.5)
+            {
+                Position.x = -18.5;
+            }
+            if (Position.x <-9.5  && Position.x > -15.5)
+            {
+                Position.x = -9.5;
+            }
+
+            if (Position.x < 15.5 && Position.x > 9.5)
+            {
+                Position.x = 9.5;
+            }
+            if (Position.x > 15.5 && Position.x < 18.5)
+            {
+                Position.x = 18.5;
+            }
+        }
+
 
         if (direction == FORWARD)
             Position += Front * velocity;
