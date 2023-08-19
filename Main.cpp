@@ -73,41 +73,42 @@ int main()
  //   Model ourModel("./external/assets/bugatti/backpack.obj");
 
 
-    unsigned int VAO[20], VBO[20];
-    glGenVertexArrays(20, VAO);
-    glGenBuffers(20, VBO);
-    VAOVBO(VAO, VBO, 0, verticesSide, sizeof(verticesSide),false);
-    VAOVBO(VAO, VBO, 1, verticesTop, sizeof(verticesTop),false);
-    VAOVBO(VAO, VBO, 2, verticesBottom, sizeof(verticesBottom),false);
+    unsigned int VAO[30], VBO[30];
+    glGenVertexArrays(30, VAO);
+    glGenBuffers(30, VBO);
+    VAOVBO(VAO, VBO, 0, verticesSide, sizeof(verticesSide), false);
+    VAOVBO(VAO, VBO, 1, verticesTop, sizeof(verticesTop), false);
+    VAOVBO(VAO, VBO, 2, verticesBottom, sizeof(verticesBottom), false);
     VAOVBO(VAO, VBO, 3, verticesPillarBack, sizeof(verticesPillarBack), false);
-    VAOVBO(VAO, VBO, 4, verticesPillarImageFront, sizeof(verticesPillarImageFront),true);
-    VAOVBO(VAO, VBO, 5, ShivaImg, sizeof(ShivaImg),true);
-    VAOVBO(VAO, VBO, 6, BuddhaImg, sizeof(BuddhaImg),true);
-    VAOVBO(VAO, VBO, 7, DurgaImg, sizeof(DurgaImg),true);
-    //VAOVBO(VAO, VBO, 6, verticesPillarImageRight, sizeof(verticesPillarImageRight),true);
-   // VAOVBO(VAO, VBO, 7, verticesPillarImageLeft, sizeof(verticesPillarImageLeft),true);
+    //Pillar Images
+    VAOVBO(VAO, VBO, 4, verticesPillarImageFront, sizeof(verticesPillarImageFront), true);
+    VAOVBO(VAO, VBO, 5, verticesPillarImageRight, sizeof(verticesPillarImageRight), true);
+    VAOVBO(VAO, VBO, 6, verticesPillarImageLeft, sizeof(verticesPillarImageLeft), true);
     //around Image
-  //  VAOVBO(VAO, VBO, 5, verticesImage1, sizeof(verticesImage1),true);
-    VAOVBO(VAO, VBO, 8, verticesImage2, sizeof(verticesImage2),true);
-    VAOVBO(VAO, VBO, 9, verticesImage3, sizeof(verticesImage3),true);
-    VAOVBO(VAO, VBO, 10, verticesImage4, sizeof(verticesImage4),true);
-    VAOVBO(VAO, VBO, 11, verticesImage5, sizeof(verticesImage5),true);
-    VAOVBO(VAO, VBO, 12, verticesImage6, sizeof(verticesImage6),true);
-    VAOVBO(VAO, VBO, 13, verticesImage7, sizeof(verticesImage7),true);
-    VAOVBO(VAO, VBO, 14, verticesImage8, sizeof(verticesImage8),true);
-    VAOVBO(VAO, VBO, 15, verticesImage9, sizeof(verticesImage9),true);
-    VAOVBO(VAO, VBO, 16, verticesImage10, sizeof(verticesImage10),true);
-    VAOVBO(VAO, VBO, 17, verticesImage11, sizeof(verticesImage11),true);
-    VAOVBO(VAO, VBO, 18, verticesImage12, sizeof(verticesImage12),true);
-    VAOVBO(VAO, VBO, 19, verticesImage13, sizeof(verticesImage13),true);
+    VAOVBO(VAO, VBO, 7, verticesImage1, sizeof(verticesImage1), true);
+    VAOVBO(VAO, VBO, 8, verticesImage2, sizeof(verticesImage2), true);
+    VAOVBO(VAO, VBO, 9, verticesImage3, sizeof(verticesImage3), true);
+    VAOVBO(VAO, VBO, 10, verticesImage4, sizeof(verticesImage4), true);
+    VAOVBO(VAO, VBO, 11, verticesImage5, sizeof(verticesImage5), true);
+    VAOVBO(VAO, VBO, 12, verticesImage6, sizeof(verticesImage6), true);
+    VAOVBO(VAO, VBO, 13, verticesImage7, sizeof(verticesImage7), true);
+    VAOVBO(VAO, VBO, 14, verticesImage8, sizeof(verticesImage8), true);
+    VAOVBO(VAO, VBO, 15, verticesImage9, sizeof(verticesImage9), true);
+    VAOVBO(VAO, VBO, 16, verticesImage10, sizeof(verticesImage10), true);
+    VAOVBO(VAO, VBO, 17, verticesImage11, sizeof(verticesImage11), true);
+    VAOVBO(VAO, VBO, 18, verticesImage12, sizeof(verticesImage12), true);
+    VAOVBO(VAO, VBO, 19, verticesImage13, sizeof(verticesImage13), true);
+    //Inside Image
+    VAOVBO(VAO, VBO, 20, ShivaImg, sizeof(ShivaImg), true);
+    VAOVBO(VAO, VBO, 21, BuddhaImg, sizeof(BuddhaImg), true);
+    VAOVBO(VAO, VBO, 22, DurgaImg, sizeof(DurgaImg), true);
 
-    
 
 
-    unsigned int textureTop, textureBottom,texture3,image1,image2,image3,image4,image5,image6,image7,texBuddha,image8,image9,image10,image11,image12,image13, texShivaG,texDurga;
-    createTexture("./external/assets/wall.jpg", &textureTop);
-    createTexture("./external/assets/wood.png", &textureBottom);
-    createTexture("./external/assets/arts/art1.png", &texture3);
+    unsigned int tImageFront, tImageLeft, tImageRight, image1, image2, image3, image4, image5, image6, image7, texBuddha, image8, image9, image10, image11, image12, image13, texShivaG, texDurga;
+    createTexture("./external/assets/arts/art1.png", &tImageFront);
+    createTexture("./external/assets/arts/art1.png", &tImageLeft);
+    createTexture("./external/assets/arts/art1.png", &tImageRight);
     createTexture("./external/assets/arts/image1.jpg", &image1);
     createTexture("./external/assets/arts/image1.jpg", &image2);
     createTexture("./external/assets/arts/image1.jpg", &image3);
@@ -121,8 +122,8 @@ int main()
     createTexture("./external/assets/arts/image1.jpg", &image11);
     createTexture("./external/assets/arts/image1.jpg", &image12);
     createTexture("./external/assets/arts/image1.jpg", &image13);
-    createTexture("./external/assets/Vagawan/shivaG.jpg", &texShivaG);
-    createTexture("./external/assets/Vagawan/Buddha.jpg", &texBuddha);
+    createTexture("./external/assets/Vagawan/Buddha.jpg", &texShivaG);
+    createTexture("./external/assets/Vagawan/ShivaG.jpg", &texBuddha);
     createTexture("./external/assets/Vagawan/swarswati.jpg", &texDurga);
 
     glEnable(GL_DEPTH_TEST);
@@ -152,62 +153,62 @@ int main()
         ourShader.setMat4("view", view);
 
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(1.0f,0.0f,0.0f));
+        model = glm::translate(model, glm::vec3(1.0f, 0.0f, 0.0f));
         ourShader.setMat4("model", model);
 
         ourShader.setVec3("viewPos", camera.Position);
-        
+
         ourShader.setInt("checkTex", 1);
         //Draw 3 Sides
         glBindVertexArray(VAO[0]);
-        glDrawArrays(GL_TRIANGLES,0,18);
-        
-        
+        glDrawArrays(GL_TRIANGLES, 0, 18);
+
         //Top
         glBindVertexArray(VAO[1]);
-        glDrawArrays(GL_TRIANGLES,0,6);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
         //Bottom
         glBindVertexArray(VAO[2]);
-        glDrawArrays(GL_TRIANGLES,0,6);
-        
-        
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+
         ourShader.setInt("checkTex", 0);
         //PillarImage
         //Front
-        glBindTexture(GL_TEXTURE_2D, image1);
+        glBindTexture(GL_TEXTURE_2D, tImageFront);
         glBindVertexArray(VAO[4]);
-        glDrawArrays(GL_TRIANGLES,0,6);
-        ////Back
-        //glBindTexture(GL_TEXTURE_2D, texture3);
-        //glBindVertexArray(VAO[5]);
-        //glDrawArrays(GL_TRIANGLES,0,6);
-                
-         ////ShivaG
-        glBindTexture(GL_TEXTURE_2D, texShivaG);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        //Right
+        glBindTexture(GL_TEXTURE_2D, tImageRight);
         glBindVertexArray(VAO[5]);
-        glDrawArrays(GL_TRIANGLES,0,6);
-       
-        glBindTexture(GL_TEXTURE_2D, texBuddha);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        //Left
+        glBindTexture(GL_TEXTURE_2D, tImageLeft);
         glBindVertexArray(VAO[6]);
-        glDrawArrays(GL_TRIANGLES,0,6);  
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        ////ShivaG
+        glBindTexture(GL_TEXTURE_2D, texShivaG);
+        glBindVertexArray(VAO[20]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        glBindTexture(GL_TEXTURE_2D, texBuddha);
+        glBindVertexArray(VAO[21]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
         //durga
         glBindTexture(GL_TEXTURE_2D, texDurga);
-        glBindVertexArray(VAO[7]);
-        glDrawArrays(GL_TRIANGLES,0,6);
-        //Left
-       glBindTexture(GL_TEXTURE_2D, texture3);
-        glBindVertexArray(VAO[7]);
-        glDrawArrays(GL_TRIANGLES,0,6);
-        
+        glBindVertexArray(VAO[22]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
         //Main Images
         glBindTexture(GL_TEXTURE_2D, image1);
-        glBindVertexArray(VAO[5]);
-        glDrawArrays(GL_TRIANGLES,0,6);
-        
+        glBindVertexArray(VAO[7]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
         glBindTexture(GL_TEXTURE_2D, image2);
         glBindVertexArray(VAO[8]);
         glDrawArrays(GL_TRIANGLES, 0, 6);
-        
+
         glBindTexture(GL_TEXTURE_2D, image3);
         glBindVertexArray(VAO[9]);
         glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -257,16 +258,16 @@ int main()
         ourShader.setInt("checkTex", 1);
         glBindVertexArray(VAO[3]);
         glDrawArrays(GL_TRIANGLES, 0, 42);
-        
+
         ourShader.use();
         glBindVertexArray(VAO[0]); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
-        
+
         // pass projection matrix to shader (note that in this case it could change every frame)
         ourShader.setInt("checkTex", 2);
         // render the loaded model
         //glm::mat4 model = glm::mat4(1.0f);
        // ourModel.Draw(ourShader);
-        
+
 
         glfwSwapBuffers(window);
         glfwPollEvents();

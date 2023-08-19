@@ -9,16 +9,18 @@ uniform int checkTex;
 in vec3 surfaceNormal;
 in vec3 FragPos;
 uniform vec3 viewPos;
-#define lightCount 5
+#define lightCount 6
 struct Light{
 	vec3 position;
 	vec3 color;
 } light[lightCount];
+
 const Light light0=Light(vec3(25.25f,21.5f,37.75f),vec3(1.0f,1.0f,1.0f));
 const Light light1=Light(vec3(25.25f,21.5f,-37.75f),vec3(1.0f,1.0f,1.0f));
 const Light light2=Light(vec3(-25.25f,21.5f,37.75f),vec3(1.0f,1.0f,1.0f));
 const Light light3=Light(vec3(-25.25f,21.5f,-37.75f),vec3(1.0f,1.0f,1.0f));
 const Light light4=Light(vec3(0.0f,21.5f,0.0f),vec3(1.0f,1.0f,1.0f));
+const Light light5=Light(vec3(0.0f,21.5f,30.0f),vec3(1.0f,1.0f,1.0f));
 
 void setup()
 {
