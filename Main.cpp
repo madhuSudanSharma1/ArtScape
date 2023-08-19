@@ -109,7 +109,7 @@ int main()
     createTexture("./external/assets/wood.png", &textureBottom);
     createTexture("./external/assets/arts/art1.png", &texture3);
     createTexture("./external/assets/arts/image1.jpg", &image1);
-    createTexture("./external/assets/arts/image2.jpg", &image2);
+    createTexture("./external/assets/arts/image1.jpg", &image2);
     createTexture("./external/assets/arts/image1.jpg", &image3);
     createTexture("./external/assets/arts/image1.jpg", &image4);
     createTexture("./external/assets/arts/image1.jpg", &image5);
