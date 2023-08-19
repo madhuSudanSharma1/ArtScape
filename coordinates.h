@@ -239,12 +239,12 @@ float verticesImage9[] = {
 };
 
 float verticesImage10[] = {
-    XC - 0.1f, YC - verticalGap,ZC - 2 * horizontalGap - 1 * imageWidth , 0.0f,1.0f,-1.0f,0.0f,0.0f,
-    XC - 0.1f, -YC + verticalGap,ZC - 2 * horizontalGap - 1 * imageWidth, 0.0f,0.0f,-1.0f,0.0f,0.0f,
-    XC - 0.1f,  YC - verticalGap,ZC - 2 * horizontalGap - 2 * imageWidth,1.0f,1.0f,-1.0f,0.0f,0.0f,
-    XC - 0.1f, -YC + verticalGap,ZC - 2 * horizontalGap - 1 * imageWidth, 0.0f,0.0f,-1.0f,0.0f,0.0f,
-    XC - 0.1f, -YC + verticalGap,ZC - 2 * horizontalGap - 2 * imageWidth,1.0f,0.0f,-1.0f,0.0f,0.0f,
-    XC - 0.1f,  YC - verticalGap,ZC - 2 * horizontalGap - 2 * imageWidth,1.0f,1.0f,-1.0f,0.0f,0.0f,
+    XC - 0.1f, YC - verticalGap,ZC - 2 * horizontalGap - 1 * imageWidth , 0.0f,1.0f, -1.0f,0.0f,0.0f,
+    XC - 0.1f, -YC + verticalGap,ZC - 2 * horizontalGap - 1 * imageWidth, 0.0f,0.0f, -1.0f,0.0f,0.0f,
+    XC - 0.1f,  YC - verticalGap,ZC - 2 * horizontalGap - 2 * imageWidth, 1.0f,1.0f, -1.0f,0.0f,0.0f,
+    XC - 0.1f, -YC + verticalGap,ZC - 2 * horizontalGap - 1 * imageWidth, 0.0f,0.0f, -1.0f,0.0f,0.0f,
+    XC - 0.1f, -YC + verticalGap,ZC - 2 * horizontalGap - 2 * imageWidth, 1.0f,0.0f, -1.0f,0.0f,0.0f,
+    XC - 0.1f,  YC - verticalGap,ZC - 2 * horizontalGap - 2 * imageWidth, 1.0f,1.0f, -1.0f,0.0f,0.0f,
 
 };
 float verticesImage11[] = {
@@ -292,7 +292,7 @@ float verticesBottom[]={
     -XC, -YC,  ZC,   0.0f,1.0f,0.0f,
     XC,  -YC, -ZC,   0.0f,1.0f,0.0f,
     -XC, -YC,  ZC,   0.0f,1.0f,0.0f,
-    XC,  -YC,  ZC,     0.0f,1.0f,0.0f,
+    XC,  -YC,  ZC,   0.0f,1.0f,0.0f,
 };
 
 
