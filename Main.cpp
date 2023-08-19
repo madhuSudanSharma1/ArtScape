@@ -81,11 +81,13 @@ int main()
     VAOVBO(VAO, VBO, 2, verticesBottom, sizeof(verticesBottom),false);
     VAOVBO(VAO, VBO, 3, verticesPillarBack, sizeof(verticesPillarBack), false);
     VAOVBO(VAO, VBO, 4, verticesPillarImageFront, sizeof(verticesPillarImageFront),true);
-    //VAOVBO(VAO, VBO, 5, ShivaImg, sizeof(ShivaImg),true);
-    VAOVBO(VAO, VBO, 6, verticesPillarImageRight, sizeof(verticesPillarImageRight),true);
-    VAOVBO(VAO, VBO, 7, verticesPillarImageLeft, sizeof(verticesPillarImageLeft),true);
+    VAOVBO(VAO, VBO, 5, ShivaImg, sizeof(ShivaImg),true);
+    VAOVBO(VAO, VBO, 6, BuddhaImg, sizeof(BuddhaImg),true);
+    VAOVBO(VAO, VBO, 7, DurgaImg, sizeof(DurgaImg),true);
+    //VAOVBO(VAO, VBO, 6, verticesPillarImageRight, sizeof(verticesPillarImageRight),true);
+   // VAOVBO(VAO, VBO, 7, verticesPillarImageLeft, sizeof(verticesPillarImageLeft),true);
     //around Image
-    VAOVBO(VAO, VBO, 5, verticesImage1, sizeof(verticesImage1),true);
+  //  VAOVBO(VAO, VBO, 5, verticesImage1, sizeof(verticesImage1),true);
     VAOVBO(VAO, VBO, 8, verticesImage2, sizeof(verticesImage2),true);
     VAOVBO(VAO, VBO, 9, verticesImage3, sizeof(verticesImage3),true);
     VAOVBO(VAO, VBO, 10, verticesImage4, sizeof(verticesImage4),true);
@@ -102,12 +104,12 @@ int main()
     
 
 
-    unsigned int textureTop, textureBottom,texture3,image1,image2,image3,image4,image5,image6,image7,image8,image9,image10,image11,image12,image13, texShivaG;
+    unsigned int textureTop, textureBottom,texture3,image1,image2,image3,image4,image5,image6,image7,texBuddha,image8,image9,image10,image11,image12,image13, texShivaG,texDurga;
     createTexture("./external/assets/wall.jpg", &textureTop);
     createTexture("./external/assets/wood.png", &textureBottom);
     createTexture("./external/assets/arts/art1.png", &texture3);
     createTexture("./external/assets/arts/image1.jpg", &image1);
-    createTexture("./external/assets/arts/image1.jpg", &image2);
+    createTexture("./external/assets/arts/image2.jpg", &image2);
     createTexture("./external/assets/arts/image1.jpg", &image3);
     createTexture("./external/assets/arts/image1.jpg", &image4);
     createTexture("./external/assets/arts/image1.jpg", &image5);
@@ -119,8 +121,9 @@ int main()
     createTexture("./external/assets/arts/image1.jpg", &image11);
     createTexture("./external/assets/arts/image1.jpg", &image12);
     createTexture("./external/assets/arts/image1.jpg", &image13);
-
-    //createTexture("./external/assets/shivaG.jpg", &texShivaG);
+    createTexture("./external/assets/Vagawan/shivaG.jpg", &texShivaG);
+    createTexture("./external/assets/Vagawan/Buddha.jpg", &texBuddha);
+    createTexture("./external/assets/Vagawan/swarswati.jpg", &texDurga);
 
     glEnable(GL_DEPTH_TEST);
 
@@ -171,7 +174,7 @@ int main()
         ourShader.setInt("checkTex", 0);
         //PillarImage
         //Front
-        glBindTexture(GL_TEXTURE_2D, texture3);
+        glBindTexture(GL_TEXTURE_2D, image1);
         glBindVertexArray(VAO[4]);
         glDrawArrays(GL_TRIANGLES,0,6);
         ////Back
@@ -180,15 +183,19 @@ int main()
         //glDrawArrays(GL_TRIANGLES,0,6);
                 
          ////ShivaG
-        glBindTexture(GL_TEXTURE_2D, image1);
+        glBindTexture(GL_TEXTURE_2D, texShivaG);
         glBindVertexArray(VAO[5]);
         glDrawArrays(GL_TRIANGLES,0,6);
        
-        glBindTexture(GL_TEXTURE_2D, texture3);
+        glBindTexture(GL_TEXTURE_2D, texBuddha);
         glBindVertexArray(VAO[6]);
+        glDrawArrays(GL_TRIANGLES,0,6);  
+        //durga
+        glBindTexture(GL_TEXTURE_2D, texDurga);
+        glBindVertexArray(VAO[7]);
         glDrawArrays(GL_TRIANGLES,0,6);
         //Left
-        glBindTexture(GL_TEXTURE_2D, texture3);
+       glBindTexture(GL_TEXTURE_2D, texture3);
         glBindVertexArray(VAO[7]);
         glDrawArrays(GL_TRIANGLES,0,6);
         
