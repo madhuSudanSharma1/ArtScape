@@ -31,22 +31,26 @@ void createTexture(const char* path, unsigned int* tex)
     stbi_image_free(data);
 };
 
-void VAOVBO(unsigned int VAO[], unsigned int VBO[], int id, float data[], int dataSize, bool hasTexture) {
+void VAOVBO(unsigned int VAO[], unsigned int VBO[], int id, float* data, int dataSize, bool hasTexture) {
     glBindVertexArray(VAO[id]);
     glBindBuffer(GL_ARRAY_BUFFER, VBO[id]);
     glBufferData(GL_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
 
 
     if (hasTexture) {
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
         glEnableVertexAttribArray(1);
+        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(5 * sizeof(float)));
+        glEnableVertexAttribArray(2);
     }
-    else
+    else 
     {
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
+        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+        glEnableVertexAttribArray(2);
     }
 
 }

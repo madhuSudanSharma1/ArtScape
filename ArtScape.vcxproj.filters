@@ -24,6 +24,9 @@
     <ClCompile Include="gallery.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="coordinate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\shader.fs">
@@ -42,6 +45,9 @@
     </ClInclude>
     <ClInclude Include="coordinates.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libraries\include\shader.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
