@@ -104,13 +104,13 @@ int main()
     
 
 
-    unsigned int textureTop, textureBottom,texture3,image1,image2,image3,image4,image5,image6,image7,texBuddha,image8,image9,image10,image11,image12,image13, texShivaG,texDurga;
+    unsigned int textureTop, textureBottom,texture3,image1,image2,image3,image4,image5,image6,image7,texBuddha,image8,image9,image10,image11,image12,image13, texShivaG,texDurga,textest;
     createTexture("./external/assets/wall.jpg", &textureTop);
     createTexture("./external/assets/wood.png", &textureBottom);
     createTexture("./external/assets/arts/art1.png", &texture3);
-    createTexture("./external/assets/arts/image1.jpg", &image1);
-    createTexture("./external/assets/arts/image1.jpg", &image2);
-    createTexture("./external/assets/arts/image1.jpg", &image3);
+    createTexture("./external/assets/arts/Sucess1.jpg", &image1);
+    createTexture("./external/assets/arts/Sucess2.jpg", &image2);
+    createTexture("./external/assets/arts/Sucess3.jpg", &image3);
     createTexture("./external/assets/arts/image1.jpg", &image4);
     createTexture("./external/assets/arts/image1.jpg", &image5);
     createTexture("./external/assets/arts/image1.jpg", &image6);
@@ -121,6 +121,7 @@ int main()
     createTexture("./external/assets/arts/image1.jpg", &image11);
     createTexture("./external/assets/arts/image1.jpg", &image12);
     createTexture("./external/assets/arts/image1.jpg", &image13);
+    createTexture("./external/assets/arts/test.jpg", &textest);
     createTexture("./external/assets/Vagawan/shivaG.jpg", &texShivaG);
     createTexture("./external/assets/Vagawan/Buddha.jpg", &texBuddha);
     createTexture("./external/assets/Vagawan/swarswati.jpg", &texDurga);
@@ -204,7 +205,7 @@ int main()
         glBindVertexArray(VAO[5]);
         glDrawArrays(GL_TRIANGLES,0,6);
         
-        glBindTexture(GL_TEXTURE_2D, image2);
+        glBindTexture(GL_TEXTURE_2D, textest);
         glBindVertexArray(VAO[8]);
         glDrawArrays(GL_TRIANGLES, 0, 6);
         
