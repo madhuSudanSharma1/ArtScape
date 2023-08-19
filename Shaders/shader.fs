@@ -65,6 +65,35 @@ vec3 getLit(vec3 objColor)
 
 }
 
+vec3 getLit(vec3 objColor)
+{
+	vec3 viewDir=normalize(viewPos-FragPos);
+	//vec3 ambient=material.ambience*objColor;
+	//vec3 diffuse=material.diffuse*objColor;
+	//vec3 specular=material.specular*objColor;
+	//float rayIntensity=(pow(0.1,2.0)/pow(length(ray),2.0))*light.intenstity;
+	vec3 ambient= vec3(0.0f);
+	vec3 diffuse= vec3(0.0f);
+	vec3 specular=vec3(0.0f);
+	for(int i=0;i<3;i++)
+	{
+		vec3 ray=-FragPos+light[i].position;
+		vec3 rayDirection=normalize(ray);
+		ambient=ambient+light[i].color;
+		float coeff=max(dot(rayDirection,surfaceNormal),0.0f);
+		diffuse=diffuse+(coeff*light[i].color);
+		vec3 halfDirn=reflect(-rayDirection,surfaceNormal);
+		float specularity=pow(max(dot(viewDir,halfDirn),0.0f),material.specularity);
+		vec3 specular=specular+(specularity*light[i].color);
+	}
+	ambient=ambient*material.ambience*objColor;
+	diffuse=diffuse*material.diffuse*objColor;
+	specular=specular*material.specular*objColor;
+	return (ambient+diffuse+specular);
+
+
+}
+
 void main()
 {
 	setup();
