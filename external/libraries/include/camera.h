@@ -104,7 +104,7 @@ public:
                 Position.z = 5.5;
             }
 
-            if (Position.z > -27.5 && Position.z < -19.5)
+            if (Position.z > -27.5 && Position.z < -18.5)
             {
                 
                 if (Position.y < 5.5)
@@ -121,15 +121,15 @@ public:
                 }
                 
             }
-            if (Position.z < -20.5 && Position.z > -18.5)
+            
+            if (Position.z < -24.5 && Position.z > -18.5)
             {
-
+                std::cout << Position.z;
                 if (Position.y < 5.5)
                 {
-
                     if (Position.x < -4 || Position.x>6)
                     {
-                        Position.z = -14.5;
+                        Position.z = -30.5;
                     }
                 }
                 else

@@ -205,7 +205,7 @@ int main()
         glBindVertexArray(VAO[5]);
         glDrawArrays(GL_TRIANGLES,0,6);
         
-        glBindTexture(GL_TEXTURE_2D, textest);
+        glBindTexture(GL_TEXTURE_2D, image2);
         glBindVertexArray(VAO[8]);
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
