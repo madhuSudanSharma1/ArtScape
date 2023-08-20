@@ -202,10 +202,10 @@ int main()
 
         //Main Images
         glBindTexture(GL_TEXTURE_2D, image1);
-        glBindVertexArray(VAO[7]);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-
-        glBindTexture(GL_TEXTURE_2D, image2);
+        glBindVertexArray(VAO[5]);
+        glDrawArrays(GL_TRIANGLES,0,6);
+        
+        glBindTexture(GL_TEXTURE_2D, textest);
         glBindVertexArray(VAO[8]);
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
