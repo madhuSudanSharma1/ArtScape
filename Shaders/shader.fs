@@ -36,7 +36,7 @@ struct Material{
 	float specular;
 	float specularity;
 } ;
-const Material material=Material(0.11f,0.3f,0.5f,10.0f);
+const Material material=Material(0.2f,0.4f,0.7f,10.0f);
 
 vec3 getLit(vec3 objColor)
 {

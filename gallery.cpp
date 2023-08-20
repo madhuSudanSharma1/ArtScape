@@ -25,6 +25,7 @@ void createTexture(const char* path, unsigned int* tex)
     {
         std::cout << "Failed to load texture" << std::endl;
     }
+    
     float borderColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
     glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
     

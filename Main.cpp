@@ -106,7 +106,7 @@ int main()
 
 
     unsigned int tImageFront, tImageLeft, tImageRight, image1, image2, image3, image4, image5, image6, image7, texBuddha, image8, image9, image10, image11, image12, image13, texShivaG, texDurga;
-    createTexture("./external/assets/arts/art1.png", &tImageFront);
+    createTexture("./external/assets/arts/image1.jpg", &tImageFront);
     createTexture("./external/assets/arts/Sucess1.jpg", &tImageLeft);
     createTexture("./external/assets/arts/Sucess2.jpg", &tImageRight);
     createTexture("./external/assets/arts/Sucess3.jpg", &image1);
@@ -319,8 +319,6 @@ void processInput(GLFWwindow* window)
     
     if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
         camera.ProcessKeyboard(DEFAULT, deltaTime);
-
-
 
 }
 

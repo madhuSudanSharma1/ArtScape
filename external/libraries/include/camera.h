@@ -29,7 +29,7 @@ const float PITCH       =  0.0f;
 const float SPEED       =  10.0f;
 const float SENSITIVITY =  0.1f;
 const float ZOOM        =  45.0f;
-const float XC = 50.5f;
+const float XC = 60.5f;
 const float YC = 21.5f;
 const float ZC = 75.5f;
 
