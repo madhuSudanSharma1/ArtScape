@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/e2f14a0d-172d-4a3a-a68f-cf2f31012804)# 🎨 ArtScape: Gallery at Your Space
+# 🎨 ArtScape: Gallery at Your Space
 
 *A 3D Virtual Art Gallery crafted with the elegance of OpenGL and the power of C++.*
 
@@ -136,6 +136,7 @@ This project acts as an educational bridge:
 👩 Madhav Prasad Parajuli  
 🎓 Tribhuvan University, Pulchowk Campus  
 📘 Department of Electronics and Computer Engineering
+
 👩 Madhu Sharma  
 🎓 Tribhuvan University, Pulchowk Campus  
 📘 Department of Electronics and Computer Engineering
