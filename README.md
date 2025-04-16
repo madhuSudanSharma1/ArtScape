@@ -133,13 +133,14 @@ This project acts as an educational bridge:
 
 ## 🧠 Credits
 
-👩 Madhav Prasad Parajuli  
+👩 [Madhav Prasad Parajuli](https://mpparajuli.com.np)  
 🎓 Tribhuvan University, Pulchowk Campus  
 📘 Department of Electronics and Computer Engineering
 
-👩 Madhu Sharma  
+👩 [Madhu Sharma](https://madhusharma.com.np)  
 🎓 Tribhuvan University, Pulchowk Campus  
 📘 Department of Electronics and Computer Engineering
+
 
 ---
 
